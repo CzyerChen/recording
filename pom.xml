@@ -7,10 +7,14 @@
     <groupId>com.learning</groupId>
     <artifactId>recording</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>rpc-producer</module>
+        <module>rpc-consumer</module>
+    </modules>
 
     <name>java learning summarize</name>
     <description>java learning summarize</description>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <properties>
         <google-collections.version>1.0</google-collections.version>

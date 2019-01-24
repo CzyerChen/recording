@@ -1,4 +1,6 @@
-package learning;
+package learning.handonrpc;
+
+import learning.inpublic.RpcRequest1;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,7 +36,7 @@ public class TCPTransport {
         }
     }
 
-    public Object send(RpcRequest request){
+    public Object send(RpcRequest1 request){
         Socket socket=null;
         try {
             socket = newSocket();

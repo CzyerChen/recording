@@ -1,4 +1,4 @@
-package learning;
+package learning.inpublic;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Claire.Chen
  * @create_time 2019 -01 - 23 16:31
  */
-public class RpcRequest implements Serializable {
+public class RpcRequest1 implements Serializable {
 
     private static final long serialVersionUID = -9100893052391757993L;
     private String className;

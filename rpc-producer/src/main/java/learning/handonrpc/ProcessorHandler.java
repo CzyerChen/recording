@@ -1,4 +1,6 @@
-package learning;
+package learning.handonrpc;
+
+import learning.inpublic.RpcRequest1;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -27,7 +29,7 @@ public class ProcessorHandler implements Runnable {
 
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-            RpcRequest rpcRequest = (RpcRequest) objectInputStream.readObject();
+            RpcRequest1 rpcRequest = (RpcRequest1) objectInputStream.readObject();
             Object result = invoke(rpcRequest);
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -41,7 +43,7 @@ public class ProcessorHandler implements Runnable {
         }
     }
 
-    private Object invoke(RpcRequest rpcRequest) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private Object invoke(RpcRequest1 rpcRequest) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Object[] args = rpcRequest.getParameters();
         Class[] types = null;
         if(args != null){

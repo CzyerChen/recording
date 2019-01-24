@@ -1,4 +1,4 @@
-package learning;
+package learning.inpublic;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ public class Person implements Serializable {
     private String id;
     private String name;
 
-    public Person(String id, String name){
+    public Person(String id,String name){
         this.id = id;
         this.name = name;
     }

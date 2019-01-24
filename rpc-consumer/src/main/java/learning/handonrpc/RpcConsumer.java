@@ -1,4 +1,4 @@
-package com.learning.framework.rpc;
+package learning.handonrpc;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,11 +16,11 @@ import java.net.Socket;
 public class RpcConsumer {
 
 
-    public static Object testRpc(final Class clazz){
+    public static Object testRpc(final Class clazz,String ip,int port){
      return Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new InvocationHandler() {
          @Override
          public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-             Socket socket = new Socket("1227.0.0.1",8888);
+             Socket socket = new Socket(ip,port);
              String apiClassName = clazz.getName();
              String methodNmae = method.getName();
              Class[] parameterTypes = method.getParameterTypes();

@@ -1,5 +1,7 @@
-package learning;
+package learning.handonrpc;
 
+
+import learning.inpublic.RpcRequest1;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -22,7 +24,7 @@ public class RemoteInvocationHandler implements InvocationHandler {
         @Override
         public Object invoke (Object proxy, Method method, Object[]args) throws Throwable {
         //组装请求
-        RpcRequest request = new RpcRequest();
+        RpcRequest1 request = new RpcRequest1();
         request.setClassName(method.getDeclaringClass().getName());
         request.setMethodName(method.getName());
         request.setParameters(args);

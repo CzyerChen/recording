@@ -13,11 +13,6 @@ package com.learning.designparttern.strategy.sql;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/**
- * @author Jeff Lee
- * @since 2015-7-19 19:33:11
  * SQL策略实现类2 
  */
 public class SqlStrategy2 implements SqlStrategy {

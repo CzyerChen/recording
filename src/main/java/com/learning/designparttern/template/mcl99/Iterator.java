@@ -13,13 +13,7 @@ package com.learning.designparttern.template.mcl99;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/**
  * 动作模板抽象类
- * @author Jeff Lee
- * @since 2015-8-18 17:22:40
- * @param <T> 传参
  */
 public abstract class Iterator<T> {
 	/**

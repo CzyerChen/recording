@@ -13,11 +13,7 @@ package com.learning.designparttern.template.mcl99;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-/**
  * 模板模式案例 --- 99乘法表打印
- * @author Jeff Lee
- * @since 2015-8-18 17:28:28
  */
 public class Test99 {
 

@@ -15,11 +15,6 @@ package com.learning.designparttern.callback.cs;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/**
- * @author Jeff Lee
- * @since 2015-10-21 21:24:15
  * 回调模式-模拟服务端类
  */
 public class Server {

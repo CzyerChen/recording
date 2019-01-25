@@ -1,12 +1,8 @@
 package com.learning.designparttern.singleton;
 
-/**
- * 描述：线程安全版 单例模式
- * Created by 子木 on 2016/2/28.
- */
 
 /**
- * 暴力锁机制，直接锁住对象，小号很大
+ * 暴力锁机制，直接锁住对象，消耗很大，线程安全版 单例模式
  */
 public class Singleton2 {
     private Singleton2 (){}

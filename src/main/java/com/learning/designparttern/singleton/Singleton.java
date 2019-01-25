@@ -1,12 +1,7 @@
 package com.learning.designparttern.singleton;
 
 /**
- * 描述：推荐版 单例模式
- * Created by 子木 on 2016/2/28.
- */
-
-/**
- * 饿汉模式
+ * 饿汉模式 推荐版 单例模式
  */
 public class Singleton {
     private static class SingletonHolder{

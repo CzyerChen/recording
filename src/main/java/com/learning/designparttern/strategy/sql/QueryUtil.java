@@ -14,11 +14,6 @@ package com.learning.designparttern.strategy.sql;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/**
- * @author Jeff Lee
- * @since 2015-7-19 19:45:57
  * 数据库操作工具类
  */
 public class QueryUtil {

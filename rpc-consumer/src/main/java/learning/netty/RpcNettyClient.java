@@ -9,6 +9,7 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.HashedWheelTimer;
 import io.netty.util.Timeout;
 import io.netty.util.Timer;
@@ -38,14 +39,14 @@ public class RpcNettyClient {
     private static Bootstrap bootstrap;
     private static Channel clientChannel;
     //锁，用于断线重连
-    private static CountDownLatch channelActiveLock =new CountDownLatch(1);
+    private static CountDownLatch channelActiveLock = new CountDownLatch(1);
     //计时器
-    private static Timer timer=new HashedWheelTimer();
+    private static Timer timer = new HashedWheelTimer();
 
     public static ConcurrentHashMap<Long, RpcFuture> futureMap = new ConcurrentHashMap<>();
 
-    public static <T> T referService(final Class<T> interfaceClass ){
-        return (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(),new Class<?>[]{interfaceClass}, new InvocationHandler() {
+    public static <T> T referService(final Class<T> interfaceClass) {
+        return (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(), new Class<?>[]{interfaceClass}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 RpcRequest request = new RpcRequest();
@@ -54,7 +55,7 @@ public class RpcNettyClient {
                 request.setParameterTypeClass(method.getParameterTypes());
                 request.setArguments(args);
                 RpcFuture future = new RpcFuture(request);
-                futureMap.put(request.getInvokeId(),future);
+                futureMap.put(request.getInvokeId(), future);
                 getClientChannel().writeAndFlush(request);
                 return future.get();
             }
@@ -64,19 +65,20 @@ public class RpcNettyClient {
 
     /**
      * 启动client端
+     *
      * @param host
      * @param port
      */
-    public  static void startClient(String host ,int port){
+    public static void startClient(String host, int port) {
         if (port <= 0 || port > 65535) {
             throw new IllegalArgumentException("Invalid port " + port);
         }
         bootstrap = new Bootstrap();
-        EventLoopGroup eventLoopGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors()<< 1);
+        EventLoopGroup eventLoopGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors() << 1);
         bootstrap.group(eventLoopGroup);
         bootstrap.remoteAddress(new InetSocketAddress(host, port));
         bootstrap.channel(NioSocketChannel.class);
-        bootstrap.option(ChannelOption.TCP_NODELAY,true);
+        bootstrap.option(ChannelOption.TCP_NODELAY, true);
         bootstrap.handler(new LoggingHandler(LogLevel.INFO));
         serverConnect();
     }
@@ -94,7 +96,9 @@ public class RpcNettyClient {
                     ChannelHandler[] handles = new ChannelHandler[]{
                             new ObjectEncoder(),
                             new ObjectDecoder(ClassResolvers.cacheDisabled(this.getClass().getClassLoader())),
-                            new ClientHandler()
+                            new ClientHandler(),
+                            new IdleStateHandler(0, 20, 0, TimeUnit.SECONDS),
+                            new ClientIdleStateEventHandler(),
                     };
                     channel.pipeline().addLast(handles);
                 }
@@ -118,31 +122,32 @@ public class RpcNettyClient {
     }
 
     /**
-     *定时重连，统一在IO线程执行重连操作
+     * 定时重连，统一在IO线程执行重连操作
      */
     public static void reConnect() {
-        channelActiveLock =new CountDownLatch(1);
+        channelActiveLock = new CountDownLatch(1);
         timer.newTimeout(new TimerTask() {
             @Override
             public void run(Timeout timeout) throws Exception {
                 RpcNettyClient.serverConnect();
             }
-        },1000, TimeUnit.MILLISECONDS);
-       log.info("----------------重新连接中------------------");
+        }, 1000, TimeUnit.MILLISECONDS);
+        log.info("----------------重新连接中------------------");
     }
 
     /**
      * 获取唯一连接
+     *
      * @return
      */
-    private static Channel getClientChannel(){
-        if(clientChannel == null){
+    private static Channel getClientChannel() {
+        if (clientChannel == null) {
             try {
                 channelActiveLock.await(60000, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        return  clientChannel;
+        return clientChannel;
     }
 }

@@ -226,5 +226,5 @@ SingletonEnum.instance.method();
 
 #### 5.装饰者模式
     装饰者模式：为原有的实现动态添加一些责任，提供弹性的替代方式
-   
+代码见 Skill + RedDiamondDecorator + BlueDiamondDecorator +Shoes + Knife + SkillDecorator
 

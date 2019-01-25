@@ -1,4 +1,4 @@
-package com.learning.designparttern.decorator.servletReq;
+package com.learning.designparttern.decorator.servletRepo;
 /*
  * Copyright [2015] [Jeff Lee]
  *

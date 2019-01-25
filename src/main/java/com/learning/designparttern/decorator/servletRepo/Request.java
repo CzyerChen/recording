@@ -1,4 +1,4 @@
-package com.learning.designparttern.decorator.servletReq;
+package com.learning.designparttern.decorator.servletRepo;
 /*
  * Copyright [2015] [Jeff Lee]
  *
@@ -13,21 +13,8 @@ package com.learning.designparttern.decorator.servletReq;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 装饰模式-请求装饰类（也是个请求的实现类）
+ * 装饰模式-请求接口类
  */
-public class RequestDecorator implements Request{
-	private Request request;
-
-	public RequestDecorator(Request request) {
-		if (request == null) {
-			throw new IllegalArgumentException("Request can be null");
-		}
-		this.request = request;
-	}
-
-	@Override
-	public String getStringParamter() {
-		return request.getStringParamter().toUpperCase();
-	}
-	
+public interface Request {
+	public String getStringParamter();
 }

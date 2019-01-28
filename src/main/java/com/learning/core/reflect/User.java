@@ -13,11 +13,6 @@ package com.learning.core.reflect;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/**
- * @author Jeff Lee
- * @since 2015-9-8 09:35:14
  * 反射构造器使用的bean
  */
 public class User {

@@ -16,11 +16,6 @@ import java.lang.reflect.InvocationTargetException;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/**
- * @author Jeff Lee
- * @since 2015-9-8 09:35:35
  * 利用反射通过构造器创建一个实例
  */
 public class UserConstructorReflect {

@@ -16,11 +16,6 @@ import java.lang.reflect.Method;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/**
- * @author Jeff Lee
- * @since 2015-11-2 16:43:41
  * 	获取Class方法案例
  */
 public class ShowMethods {
@@ -29,10 +24,12 @@ public class ShowMethods {
             Class<?> c = Class.forName("org.javacore.rtti.ShowMethods");
             Method[] methods = c.getMethods();
             Constructor[] constructors = c.getConstructors();
-            for (Method m : methods)
+            for (Method m : methods) {
                 System.out.println(m.toGenericString());
-            for (Constructor constructor : constructors)
+            }
+            for (Constructor constructor : constructors) {
                 System.out.println(constructor.toGenericString());
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

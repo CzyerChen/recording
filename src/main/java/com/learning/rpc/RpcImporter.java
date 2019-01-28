@@ -1,4 +1,4 @@
-package com.learning.framework.rpc;
+package com.learning.rpc;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

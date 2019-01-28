@@ -1,4 +1,4 @@
-package com.learning.framework.rpc;
+package com.learning.rpc;
 
 /**
  * 描述:服务Echo接口类

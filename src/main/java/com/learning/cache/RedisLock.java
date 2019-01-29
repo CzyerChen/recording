@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
+import redis.clients.jedis.Jedis;
+
+import java.util.Random;
 
 /**
  * Desciption
@@ -35,6 +38,7 @@ public class RedisLock {
             if (!StringUtils.isEmpty(oldValue) && oldValue.equals(currentValue)) {
                 return true;
             }
+
         }
 
         return false;//拿到锁的就有执行权力，拿不到的只有重新再来
@@ -55,5 +59,8 @@ public class RedisLock {
             log.error("【redis分布式锁】解锁异常, {}", e);
         }
     }
+
+
+
 
 }

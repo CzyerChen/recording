@@ -36,3 +36,11 @@
 15. 分布式计算
 16. 自动化部署
 17. 自动化测试
+
+**TODO-LIST:** 
+1. mybatis-spring 底层加载原理
+2. jpa-spring 底层加载原理
+3. NIO netty/linux中的运用
+4. spring5特性总结
+
+

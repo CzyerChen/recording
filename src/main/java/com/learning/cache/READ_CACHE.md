@@ -98,4 +98,12 @@ redis是K-V类型的内存数据库，支持多种数据类型，事务支持较
     - 除了在关系库中使用互斥锁，实现秒杀的场景，还可以使用分布式锁，直接将请求进行分摊
     - cachelock lockedObject LockedComplexObject CacheLockInterceptor  lock unlock 
     - 秒杀实际场景的练习
+
+- 12.redis 安装
+  - windows 下载安装包，使用`redis-server.exe redis.windows.conf`开启系统服务
+  - linux 安装单机版（测试版本）、集群版（分布式副本版本）、哨兵版（高可用版本）
+
+- 13.redis基础知识学习（基础概念、安装、命令、数据类型等）  --- 感觉非常详细，适合初学者
+ https://www.cnblogs.com/arjenlee/p/9238114.html
+ 
  

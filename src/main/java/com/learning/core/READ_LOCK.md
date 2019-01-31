@@ -3,7 +3,7 @@
 为了解决并发中可能出现的问题，我们可以通过加锁或者使用一些内存可见技术来避免这些问题的产生
 
 ## 二、解决并发问题的几个措施
-锁机制（显示锁、悲观锁）、原子变量CAS、viotile、并发包(Concurrent*,例如ConcurrentHashMap,CopyOnWriteArrayList)、ThreadLocal
+锁机制（显示锁、悲观锁）、原子变量CAS、volatile、并发包(Concurrent*,例如ConcurrentHashMap,CopyOnWriteArrayList)、ThreadLocal
 
 ## 三、java中15种锁机制
 #### 1.公平锁/非公平锁
@@ -96,8 +96,8 @@ public class ReentrantLock implements Lock, java.io.Serializable {
 
 - 这里实现的锁都是独占的，且不能重入的
 
-## 四、viotile的原子性和内存可见性
-viotile关键字，解决了内存不可见的问题，但是并不具有原子性
+## 四、volatile的原子性和内存可见性
+volatile关键字，解决了内存不可见的问题，但是并不具有原子性
 - 它的内存可见性，主要取决于，每一次操作都要求获取内存中最新的值，因而不会出现脏读的问题
 - 它的非原子性，主要取决于，它对于内存的读和写的操作是原子的，能保证读是当前唯一的，写是当前唯一的，但是它读取变量后是拷贝到本地变量中，如果再读写之间对于读取的变量有修改操作，那么这个修改作用在本地，并不能实时操作内存中的数组，在修改结束和写入内存之间，其他进程读取变量值的时候就丧失了原子性
 - 写的原子性主要依赖内存屏障，阻塞等待，保证在当前操作之前的操作都执行完毕，才执行写入内存的操作

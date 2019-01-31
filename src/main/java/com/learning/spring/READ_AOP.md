@@ -42,4 +42,14 @@ class Test{
 - 资源回收处理
 .....
 
+### JDK动态代理
+https://blog.csdn.net/sunnycoco05/article/details/78845878
+
+### CGLIB动态代理
+https://blog.csdn.net/sunnycoco05/article/details/78853148
+
+### 使用spring的代理方法，动态使用JDK代理和CGLIB代理
+如果声明接口定义的使用JDK动态代理，如果没有声明接口定义的使用CGLIB动态代理
+https://blog.csdn.net/sunnycoco05/article/details/78901449
+
 

@@ -5,7 +5,7 @@
 - 往ThreadLocal里面存数据，就是想ThrealLocal的Map中存对象，然后将这个Map的副本放入当前线程
 
 ### 结构图
-
+![avatar](https://raw.githubusercontent.com/CzyerChen/recording/master/img/ThreadLocal%E5%BC%95%E7%94%A8%E6%83%85%E5%86%B5.png)
 
 ### 数据结构
 - key是弱引用类型，无法生存到下一次GC，但是值是正常强引用类型，需要没有对象引用它才会被标记被清除

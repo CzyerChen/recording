@@ -10,6 +10,7 @@
     <modules>
         <module>rpc-producer</module>
         <module>rpc-consumer</module>
+        <module>jar-loader</module>
     </modules>
 
     <name>java learning summarize</name>

@@ -11,6 +11,8 @@
         <module>rpc-producer</module>
         <module>rpc-consumer</module>
         <module>jar-loader</module>
+        <module>pattern</module>
+        <module>springall</module>
     </modules>
 
     <name>java learning summarize</name>

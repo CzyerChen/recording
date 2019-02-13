@@ -13,6 +13,7 @@
         <module>jar-loader</module>
         <module>pattern</module>
         <module>springall</module>
+        <module>mvcdemo</module>
     </modules>
 
     <name>java learning summarize</name>

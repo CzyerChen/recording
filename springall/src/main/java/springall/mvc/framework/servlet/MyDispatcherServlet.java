@@ -294,7 +294,6 @@ public class MyDispatcherServlet extends HttpServlet {
          */
         public MyModelAndView handle(HttpServletRequest request, HttpServletResponse response, MyDispatcherServlet.Handler handler) throws InvocationTargetException, IllegalAccessException {
 
-            //为什么要传req、为什么要穿resp、为什么传handler
             //为了给request、response赋值
             Class<?>[] parameterTypes = handler.method.getParameterTypes();
 

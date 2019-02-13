@@ -14,6 +14,7 @@
         <module>pattern</module>
         <module>springall</module>
         <module>mvcdemo</module>
+        <module>distribute</module>
     </modules>
 
     <name>java learning summarize</name>

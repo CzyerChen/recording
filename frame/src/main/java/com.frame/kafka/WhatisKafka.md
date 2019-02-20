@@ -2,8 +2,9 @@
 
 ### 一、Kafka初级教程
 教程包括：
-- Kafka的定义
+- Kafka的概述
 - Kafka的特性
+- Kafka使用场景
 - Kafka的安装使用（单节点、集群）
 - Kafka相关名词解释
 - Kafka常用命令

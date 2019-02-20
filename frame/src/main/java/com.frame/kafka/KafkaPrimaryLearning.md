@@ -1,16 +1,19 @@
 kafka初级教程将从以下几个方面展开：
-- Kafka的定义
+- Kafka的概述
 - Kafka的特性
+- Kafka使用场景
 - Kafka的安装使用（单节点、集群）
 - Kafka相关名词解释
 - Kafka常用命令
 - Kafka核心配置
 
 
-### 一、Kafka的定义
+### 一、Kafka的概述
+- Kakfa起初是由LinkedIn公司开发的一个分布式的消息系统，后成为Apache的一部分，它使用Scala编写
 - Kafka是一个分布式消息队列，具有高性能、持久化、多副本备份、横向扩展能力的功能
 - 像其他MQ类似，向生产者投递消息，消费者订阅主题，消费数据
 - 消息中间件在应用当中充当解耦、异步消息投递、消息持久化、削峰这样的角色
+- 越来越多的开源分布式处理系统如Cloudera、Apache Storm、Spark等都支持与Kafka集成
 
 ### 二、Kafka的特性
 既然是分布式的结构，它非常突出的特性就是它的分布式特性
@@ -20,8 +23,15 @@ kafka初级教程将从以下几个方面展开：
 - 高吞吐率
 有第一个特点作为支撑，横向节点的扩展，也使队列的消费能力、吞吐量有很大的提升，可以支撑更大的并发消息处理和持久化的能力
 
+### 三、Kafka使用场景
+- 1.日志收集：现在越来越多公司开始重视日志的管理和收集，其中Kafka也可以接收各种服务日志，进行统一消费，例如Hadoop\Hnase\Solr
+- 2.消息系统：解耦生产者和消费者，是系统的交互和关联灵活，由于其持久化的支持，还可以做消息缓存
+- 3.用户活动跟踪：可以将各种类型的用户数据发送到不同的topic上面，针对不同topic的数据做不同的处理和分析，可以是实时的，也可以是离线的
+- 4.运营指标：收集运营指标，用以监控
+- 5.流式处理：和sparkstreaming和storm配合使用
+- 6.事件源：进行事件推送和消费
 
-### 三、Kafka的安装使用（单节点、集群）
+### 四、Kafka的安装使用（单节点、集群）
 - 环境说明：
 ```text
 操作系统：Cent OS 7
@@ -104,7 +114,7 @@ zookeeper.connect=localhost:2181
    - 3.3 关于测试是一样的，选择一个存在的topic，然后在一个节点启动生产者，在另外多个节点同时订阅，查看是否能够收到消息
    - 3.4 关于启动失败，请查看log下面的日志
  
-### 四、Kafka相关名词解释
+### 五、Kafka相关名词解释
 - Broker : Kafka集群中服务器节点的标识
 
 - Topic: kafka是面向topic,每发送一条消息到Kafka都需要发送到一个对应的topic
@@ -128,7 +138,7 @@ zookeeper.connect=localhost:2181
 - zookeeper：kafka 通过 zookeeper 来存储集群的 meta 信息，用于节点的协调管控
 
 
-### 五、Kafka常用命令
+### 六、Kafka常用命令
 - 启动kafka
 ```text
 nohup bin/kafka-server-start.sh config/server.properties > /dev/null 2>&1 &
@@ -183,7 +193,7 @@ bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic middleware --fr
 
 ```
 
-### 六、Kafka核心配置
+### 七、Kafka核心配置
 看了大神的博客，相当详细，很清晰：https://www.cnblogs.com/wangzhuxing/p/10111831.html
 
 

@@ -45,5 +45,12 @@ Static的类型会在程序初始化之后一直在内存中，直到程序终�
 本地Entry数组对ThreadLocal变量副本有一个弱引用，当当前线程不再存在，当前线程对Key的引用就会消失，可是ThreadLocal的弱引用还存在，因而无法被回收。
 - 预防：手动调用remove方法，可以循环检验ThreadLocal的引用，并将其指向null；不要使用set(null)的方式来清除引用，因为无效；
 
+### 四、内存检测工具
+JProfiler
+Profiling
+Java VisualJVM
+
+
+
 
 

@@ -17,15 +17,16 @@
 - Kafka集群Leader节点选举算法
 - Partition Replication的分配
 - Replication数据同步
-- 如何应对所有的Replica宕机
-- Broker fail over流程
+- Kafka集群Leader节点选举算法
+- 消息传输保障
+- 消息去重
 - Controller节点
+- Broker fail over流程
 - Producer消息路由
 - Consumer 和Consumer Group
 - Offset的保存
-- Kafka分区机制、Partition分配算法
-- 分配和重新分配的协调者
-- 消息消费的定义
+- 内部网络框架
+- Rebalance机制
 - Kafka自带管理工具
 - Kafka监控工具
 - Kafka的使用DEMO

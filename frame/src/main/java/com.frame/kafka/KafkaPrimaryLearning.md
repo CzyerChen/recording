@@ -6,6 +6,8 @@ kafka初级教程将从以下几个方面展开：
 - Kafka相关名词解释
 - Kafka常用命令
 - Kafka核心配置
+- 为什么要用MQ
+- 其他MQ
 
 
 ### 一、Kafka的概述
@@ -196,4 +198,33 @@ bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic middleware --fr
 ### 七、Kafka核心配置
 看了大神的博客，相当详细，很清晰：https://www.cnblogs.com/wangzhuxing/p/10111831.html
 
+### 八、为什么要用MQ
+- 给各个应用组件解耦
+- 增强数据冗余性，提高可用性，可以容错
+- 分布式的架构，有很好横向扩展能力
+- MQ的异步消费，巨大吞吐量，给应用带来极大的峰值处理能力
+- 分布式副本的存在，是数据有很高的可恢复性，极大避免了数据的丢失
+- 可以依靠算法保证数据的可达，不漏发、不丢失
+- Kafka物理存储采用顺序追加，在同一partition下能够很好的保证数据的顺序
+- 数据的吞吐和暂存给了应用很好的缓冲能力
+- 依靠MQ，能够实现异步通信，无需关心数据的投递环节
+
+
+### 九、其他MQ
+- rabbitMQ
+    - RabbitMQ是使用Erlang编写的一个开源的消息队列，本身支持很多的协议：AMQP，XMPP, SMTP, STOMP
+    - 重量级，适合企业级开发
+    - 实现了路由、负载均衡、数据持久化，运用灵活
+- redis
+    - 内存数据库，自身也可以依靠Queue的数据类型，实现轻量级服务队列的功能
+    - 对于小key的出队入队，redis都表现出极好的性能，对大key的入队可能redis略力不从心
+- zeroMQ
+    - ZeroMQ号称最快的消息队列系统，适合大吞吐量场景,ZMQ能够实现RabbitMQ不擅长的高级/复杂的队列
+    - ZeroMQ仅提供非持久性的队列
+- ActiveMQ
+    - 能够以代理人和点对点的技术实现队列，也能较高效率应对应用场景
+- Kafka/Jafka
+    - 高性能跨语言分布式Publish/Subscribe消息队列系统
+    - 高吞吐、快速持久化、支持分布式、负载均衡
+    - 轻量级
 

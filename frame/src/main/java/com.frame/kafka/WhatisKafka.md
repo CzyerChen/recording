@@ -9,6 +9,9 @@
 - Kafka相关名词解释
 - Kafka常用命令
 - Kafka核心配置
+- 为什么要用MQ
+- 其他MQ
+
 
 ### 二、Kafka中级教程
 教程包括：
@@ -21,7 +24,7 @@
 - 消息传输保障
 - 消息去重
 - Controller节点
-- Broker fail over流程
+- fail over流程
 - Producer消息路由
 - Consumer 和Consumer Group
 - Offset的保存

@@ -18,6 +18,7 @@
         <module>frame</module>
         <module>notes</module>
         <module>kafka-transaction</module>
+        <module>dbhelper</module>
     </modules>
 
     <name>java learning summarize</name>

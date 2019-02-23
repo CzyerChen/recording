@@ -18,6 +18,7 @@ kafka中级教程将从以下几个方面展开：
 - Kafka的使用DEMO
 - Kafka的性能测试
 - 如何确定Kafka的分区数、key的路由和consumer线程数
+- Kafka分区分配策略
 
 
 ### 一、Kafka架构和原理
@@ -428,3 +429,66 @@ if(key == null) {  // 如果没有指定key
 3. consumer线程数
 - 之前也有讨论过Kafka分区和consumer的关系，如果consumer多，必然有consumer空闲，如果分区多，consumer必然有需要订阅多个分区的情况
 - 所以在这样的情况下，consumer线程数最好与分区数一致，减少了空闲和过载的损耗
+
+
+### 二十、Kafka分区分配策略
+#### 1.Kafka分区分配的情况
+- 同一个consumer group内新增消费者
+- 消费者离开所属consumer group，可能是关闭或者宕机
+- 订阅的主题新增分区，或者分区调整
+- 能通过partition.assignment.strategy参数选择 range 或 roundrobin。参数默认的值是range，个人更推荐round robin
+
+出现以上情况都需要进行分区的调整，成为rebalance
+以下会通过例子，清晰的解释两种分配策略
+
+#### 2.Kafka Range分区策略
+- Range分区策略，在每一个主题中，会对分区进行编号，并对消费者进行排序
+- 例子一： 有两个消费者，C1 C2,有两个主题T1 T2,有5个分区，三个消费者线程C1 的 num.streams = 1，C2 的 num.streams = 2
+- range策略会首先考虑平均分，如果正好能平均分，就平均分配分区，如果不能，就将数量多的分区交给前面的消费者消费
+
+- 5个分区为，0，1，2，3，4
+- 消费者C1-0,C2-0,C2-1
+- C1-0 将消费 0, 1 分区
+- C2-0 将消费 2, 3 分区
+- C2-1 将消费 4 分区
+
+- 如果分区增加到7: 0，1，2，3，4，5，6
+- C1-0 将消费 0, 1, 2 分区
+- C2-0 将消费 3, 4 分区
+- C2-1 将消费 5, 6 分区
+
+- 如果T1,5个分区：0，1，2，3，4，T2，7个分区：0，1，2，3，4，5，6
+- C1-0 将消费 T1 0, 1 分区,T2 0, 1, 2分区
+- C2-0 将消费 T1 2, 3 分区,T2 3, 4 分区
+- C2-1 将消费 T1 4 分区,T2 5, 6 分区
+
+
+- 由于是出于平均分的思想，但是很多情况下并不能平均分配，就只能有消费者需要多承受几个分区的任务了
+- 这是range分区策略的一个问题
+
+#### 3.Kafka Round Robin 分区策略
+- round Robin策略有前提：
+    - 同一个Consumer Group里面的所有消费者的num.streams必须相等
+    - 每个消费者订阅的主题必须相同
+
+- 出于以上前提，consumer就必须有一样的num.streams，那消费者列表就有：C1-0,C1-1,C2-0,C2-1，T1 有5个分区
+- RoundRobin策略的工作原理：将所有主题的分区组成 TopicAndPartition 列表，然后对 TopicAndPartition 列表按照 hashCode 进行排序。这个排序结果可以自己研究一下代码，这边不详细介绍，以下是java代码
+```text
+ctx.partitionsForTopic.flatMap { case(topic, partitions) =>
+       .format(ctx.consumerId, topic, partitions))
+  partitions.map(partition => {
+    TopicAndPartition(topic, partition)
+  })
+}.toSeq.sortWith((topicPartition1, topicPartition2) => {
+  topicPartition1.toString.hashCode < topicPartition2.toString.hashCode
+})
+```
+经过代码hashcode排序之后的Topic分区为T1-3,T1-0,T1-2,T1-1,T1-4
+- C1-0 将消费 T1-3,T1-4 分区
+- C1-1 将消费 T1-0 分区
+- C2-0 将消费 T1-2 分区
+- C2-1 将消费 T1-1 分区
+
+通过hash排序是能够让排序更加无序，依靠散列的性质，然后在对消费者均匀分配，不是按照阶段，也更能体现随机性
+
+

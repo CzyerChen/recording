@@ -19,6 +19,7 @@
         <module>notes</module>
         <module>kafka-transaction</module>
         <module>dbhelper</module>
+        <module>nettyhelper</module>
     </modules>
 
     <name>java learning summarize</name>

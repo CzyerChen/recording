@@ -17,14 +17,13 @@
 教程包括：
 - Kafka架构和原理
 - Kafka消息存储方式
-- Kafka集群Leader节点选举算法
-- Partition Replication的分配
 - Replication数据同步
+- Partition Replication的分配
 - Kafka集群Leader节点选举算法
 - 消息传输保障
 - 消息去重
 - Controller节点
-- fail over流程
+- fail over问题
 - Producer消息路由
 - Consumer 和Consumer Group
 - Offset的保存
@@ -33,10 +32,10 @@
 - Kafka自带管理工具
 - Kafka监控工具
 - Kafka的使用DEMO
+- Kafka的性能测试
+- 如何确定Kafka的分区数、key的路由和consumer线程数
+- Kafka分区分配策略
 
 ### 三、Kafka高级教程
 高级教程涉及一些问题的思考：
-- Kafka +事务：Kafka自身并不支持事务，因而面对事务场景，如何使用消息事务实现最终一致性方案
-- Kafka消息丢失和重复的场景及解决方案分析
-- 解决KafKa数据存储与顺序一致性保证
-- 如何确定Kafka的分区数、key和consumer线程数
+- Kafka + 分布式事务

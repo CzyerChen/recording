@@ -7,7 +7,7 @@ kafka中级教程将从以下几个方面展开：
 - 消息传输保障
 - 消息去重
 - Controller节点
-- fail over流程
+- fail over问题
 - Producer消息路由
 - Consumer 和Consumer Group
 - Offset的保存

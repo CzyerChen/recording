@@ -17,6 +17,7 @@
         <module>distribute</module>
         <module>frame</module>
         <module>notes</module>
+        <module>kafka-transaction</module>
     </modules>
 
     <name>java learning summarize</name>

@@ -16,6 +16,8 @@ kafka中级教程将从以下几个方面展开：
 - Kafka自带管理工具
 - Kafka监控工具
 - Kafka的使用DEMO
+- Kafka的性能测试
+- 如何确定Kafka的分区数、key的路由和consumer线程数
 
 
 ### 一、Kafka架构和原理
@@ -375,3 +377,54 @@ kafka 提供了两套 consumer API：
 1. The high-level Consumer API
 2. The SimpleConsumer API
 
+### 十八、Kafka的性能测试
+1. 测试不同的副本数、min.insync.replicas策略以及request.required.acks策略(以下简称acks策略)对于发送速度(TPS)的影响
+- 客户端实现ack机制，会对发送速率有影响，TPS：acks_0 > acks_1 > ack_-1;
+- 副本数越高，TPS越低;副本数一致时，min.insync.replicas不影响TPS;
+- ack=0,1时，TPS与min.insync.replicas参数以及副本数无关；
+
+
+2. 在partition个数固定为1，测试不同的副本数和min.insync.replicas策略对发送速度的影响
+- 副本数越高，TPS越低，min.insync.replicas不影响TPS
+
+3. 在partition个数固定为1，测试不同的acks策略和副本数对发送速度的影响
+- 客户端的acks策略对发送的TPS有较大的影响，TPS：acks_0 > acks_1 > ack_-1
+
+4. 测试不同partition数对发送速率的影响
+- partition的不同会影响TPS，随着partition的个数的增长TPS会有所增长，但并不是一直成正比关系，到达一定临界值时，partition数量的增加反而会使TPS略微降低
+
+
+### 十九、如何确定Kafka的分区数、key的路由和consumer线程数
+1. 确定Kafka的分区数
+- Kafka底层抛弃JVM堆缓存，使用了操作系统的页式缓存，将写入数据转化为顺序写入，利用操作系统sendFile实现零拷贝，极大的提高了应用的吞吐能力
+- 除了以上的优秀改良，Kafka更是用到了分区技术，将数据分散，能力得到提升
+- 那分区的数据量大，也会很大影响性能：客户端/服务端的开销，文件句柄开销，增加故障恢复的复杂性
+
+2. key的路由
+- 对于存在的key, 可以通过hash(key)%numPartitions 进行分区分配
+```text
+def partition(key: Any, numPartitions: Int): Int = {
+    Utils.abs(key.hashCode) % numPartitions
+}
+```
+- 对于不存在的key,Kafka会使用设定的分配策略定位一个分区进行投递，并将key与分区对应关系缓存起来
+```text
+if(key == null) {  // 如果没有指定key
+        val id = sendPartitionPerTopicCache.get(topic)  // 先看看Kafka有没有缓存的现成的分区Id
+        id match {
+          case Some(partitionId) =>  
+            partitionId  // 如果有的话直接使用这个分区Id就好了
+          case None => // 如果没有的话，
+            val availablePartitions = topicPartitionList.filter(_.leaderBrokerIdOpt.isDefined)  //找出所有可用分区的leader所在的broker
+            if (availablePartitions.isEmpty)
+              throw new LeaderNotAvailableException("No leader for any partition in topic " + topic)
+            val index = Utils.abs(Random.nextInt) % availablePartitions.size  // 从中随机挑一个
+            val partitionId = availablePartitions(index).partitionId
+            sendPartitionPerTopicCache.put(topic, partitionId) // 更新缓存以备下一次直接使用
+            partitionId
+        }
+      }
+```
+3. consumer线程数
+- 之前也有讨论过Kafka分区和consumer的关系，如果consumer多，必然有consumer空闲，如果分区多，consumer必然有需要订阅多个分区的情况
+- 所以在这样的情况下，consumer线程数最好与分区数一致，减少了空闲和过载的损耗

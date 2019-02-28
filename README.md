@@ -3,6 +3,7 @@
 - 不只是为了眼前，苟且生活；更为了，拥抱明天
 - 关于代码都是互联网上找的，有些自己敲拿来debug学习的，如有侵权，请联系我我及时删除
 - 参考Holis - to be a javaer
+- 把自己学习的全过程记录下来，把出现的问题和遇到的疑惑记录下来
 - 以前开的一个公众号，自己P的一个小吉祥物，算是小猫头鹰，欢迎关注。
 ![avatar](https://github.com/CzyerChen/recording/blob/master/img/qrcode_for_gh_5a83f29f7eb0_344.jpg)
 

@@ -20,6 +20,13 @@
         <module>kafka-transaction</module>
         <module>dbhelper</module>
         <module>nettyhelper</module>
+        <module>elasticsearchhelper</module>
+        <module>cachehelper</module>
+        <module>loginhelper</module>
+        <module>basicjava</module>
+        <module>algorithm</module>
+        <module>jvmhelper</module>
+        <module>networkhelper</module>
     </modules>
 
     <name>java learning summarize</name>

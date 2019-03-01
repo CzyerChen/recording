@@ -1,0 +1,3 @@
+MySQL 8.0 InnoDB无锁化设计的日志系统
+- 新特性：MySQL 8.0中一个重要的新特性是对Redo Log子系统的重构，通过引入两个新的数据结构recent_written和recent_closed，移除了之前的两个热点锁：log_sys_t::mutex和log_sys_t::flush_order_mutex
+- 新问题：这种无锁化的重构使得不同的线程在写入redo_log_buffer时得以并行写入，但因此带来了log_buffer不再按LSN增长的顺序写入的问题，以及flush_list中的脏页不再严格保证LSN的递增顺序问题

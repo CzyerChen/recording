@@ -7,15 +7,18 @@
 认识基本的java io 模型
 认识NIO  多路复用
 
+http://ifeve.com/java-nio-all/
 
 基础
 认识netty,netty是什么
 为什么用netty
 Netty 在哪些行业得到了应用
 服务端启动流程
+netty5
 
 
 中阶
+
 源码分析-reactor-1
 源码分析-reactor-2
 源码分析-reactor-3

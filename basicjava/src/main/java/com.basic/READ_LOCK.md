@@ -79,7 +79,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
 - 分段锁的实现就是默认初始对象有16个锁，分别加载16个散列分散桶上，就是一段一段的数据，因而数据访问的加锁概率被分散到16个数据段上（第N个散列桶由第（N mod 16）个锁来保护），大大降低了加锁的概率，也就大大提高了并发
 
 #### 7.偏向锁/轻量级锁/重量级锁
-
+见JavaMemoryModel-JMM5-lock
 
 #### 8.自旋锁
 - 自旋锁使用原子引用，提供了引用变量的读写原子性操作，当前demo即对当前线程加锁

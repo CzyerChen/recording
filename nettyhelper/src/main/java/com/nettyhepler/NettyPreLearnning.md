@@ -1,4 +1,6 @@
-学习Java I/O模型，从BIO到NIO和Reactor模式
+- 学习Java I/O模型，从BIO到NIO和Reactor模式
+- 参阅 http://www.jasongj.com/java/nio_reactor/
+- 预留下详细学习的渠道：http://ifeve.com/java-nio-all/
 
 ### 一、java IO模型
 #### 1.同步IO/异步IO

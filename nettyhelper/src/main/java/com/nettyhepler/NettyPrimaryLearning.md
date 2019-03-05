@@ -1,13 +1,8 @@
-准备知识：
-缓冲区 Buffer。
-通道 Channel。
-多路复用器 Selector。
-作为异步事件驱动、高性能的 NIO 框架，Netty 代码中大量运用了 Java 多线程编程技巧，熟练掌握多线程编程是掌握 Netty 的必备条件
+- 基本的JAVA IO知识可以通过预学习部分了解，主要需要理解Buffer Channel Selector等概念
 
-认识基本的java io 模型
-认识NIO  多路复用
 
-http://ifeve.com/java-nio-all/
+ 
+
 
 基础
 认识netty,netty是什么

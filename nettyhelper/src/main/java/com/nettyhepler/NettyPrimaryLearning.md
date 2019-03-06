@@ -1,12 +1,15 @@
 - 基本的JAVA IO知识可以通过预学习部分了解，主要需要理解Buffer Channel Selector等概念
 
 
+
  
 
 
 基础
 认识netty,netty是什么
 为什么用netty
+netty为什么快
+
 Netty 在哪些行业得到了应用
 服务端启动流程
 netty5

@@ -30,9 +30,7 @@
 
 - 设计模式是一个很抽象的概念，小白们觉得很神奇，大神们觉得得心应手
 - 它描述的是代码组织层面的概念，是被反复实践总结、代码设计的经验
-- 根据一些模式的书写规范，可以达到代码思路清晰，扩展性强，后期维护优雅
-
-#### 1. 单例模式  
+- 根据一些模式的书写规范，可以达s
 - `单例模式的使用前提`:
   避免多个实例造成资源的浪费，增大垃圾回收的压力，并且多个实例并存可能导致调用的错误
 - `单例模式的含义`：
@@ -229,6 +227,7 @@ SingletonEnum.instance.method();
 代码见 Skill + RedDiamondDecorator + BlueDiamondDecorator +Shoes + Knife + SkillDecorator
 
 #### 6.适配器模式  ---  手机充电器
+Arrays.asList体现了适配器，内部依旧是数组
     适配器模式：将其他类型的数据转为统一的接口输出
 代码见 Mobile +Power5V + Power220V + PowerAdapter + TestMain
     

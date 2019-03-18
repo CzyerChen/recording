@@ -10,6 +10,7 @@ import io.netty.channel.socket.oio.OioServerSocketChannel;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 /**
  * Desciption:netty的操作就是对NIO的细节做了封装，只需要简单的输入参数，就可以将监听信道，接收到消息如何处理的工作封装起来，处理更加清晰和优雅
@@ -45,5 +46,21 @@ public class NettyServer {
         } finally {
             group.shutdownGracefully().sync();        //7
         }
+    }
+
+    public static void main(String[] args){
+
+      /* char[] s = new char[]{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'};
+       s[40-33] = '1';
+        System.out.println(Arrays.toString(s));*/
+
+      StringBuilder s= new StringBuilder("00000000000000000000000000000000000000000");
+      s.replace(7,8,"1");
+      System.out.println(s.toString());
+
+        Integer aa = Integer.valueOf(s.toString(), 2);
+        int hh = aa | 15;
+        System.out.println(Integer.toBinaryString(hh));
+
     }
 }

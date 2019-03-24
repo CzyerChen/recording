@@ -48,7 +48,6 @@ public class DynamicSchedulingConfig {
                     scheduledFuture.cancel(true);
                 }
             }
-
             for (CronInfo cron : crons){
                     //可以根据业务需求，判断这个任务是否有效等条件，判断是否执行
                     //通过反射成java类，获取类

@@ -15,8 +15,8 @@ import java.util.concurrent.Executors;
  * @author Claire.Chen
  * @create_time 2019 -03 - 22 17:18
  */
-@Configuration
-@EnableScheduling
+/*@Configuration
+@EnableScheduling*/
 public class ScheduleConfig implements SchedulingConfigurer {
 
     @Override

@@ -21,9 +21,9 @@ import java.util.concurrent.Executor;
  * @author Claire.Chen
  * @create_time 2019 -03 - 22 17:19
  */
-@EnableScheduling
-@Configuration
-@EnableAsync(mode = AdviceMode.PROXY,proxyTargetClass = false,order = Ordered.HIGHEST_PRECEDENCE) //使用java自身的代理，而不是AspectJ
+//@EnableScheduling
+//@Configuration
+//@EnableAsync(mode = AdviceMode.PROXY,proxyTargetClass = false,order = Ordered.HIGHEST_PRECEDENCE) //使用java自身的代理，而不是AspectJ
 public class AsyncSchedulingConfig implements AsyncConfigurer, SchedulingConfigurer, DisposableBean {
 
     @Bean(name = "scheduler")

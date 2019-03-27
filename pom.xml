@@ -25,6 +25,8 @@
         <module>basicjava</module>
         <module>jvmhelper</module>
         <module>networkhelper</module>
+        <module>proxyhelper</module>
+        <module>linux</module>
     </modules>
 
     <name>java learning summarize</name>

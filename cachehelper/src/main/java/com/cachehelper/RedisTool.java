@@ -1,4 +1,4 @@
-package com.cachehelper.redis.utils;
+package com.cachehelper;
 
 import redis.clients.jedis.JedisCluster;
 

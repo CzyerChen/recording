@@ -7,7 +7,31 @@
 - 以前开的一个公众号，自己P的一个小吉祥物，算是小猫头鹰，欢迎关注。
 ![avatar](https://github.com/CzyerChen/recording/blob/master/img/qrcode_for_gh_5a83f29f7eb0_344.jpg)
 
+--------------------------------------------------------------------------------------------
+**Watch Out**
+- 经过一阶段的零星学习，看到了自己知识面匮乏的一面，决定从专题中由浅入深学习，而不在一味追求广泛基础的认知
+- 已学习并整理
+    - Java基础
+    - Java并发（ConcurrentHashMap,Lock,ThreadLocal,ThreadPool）
+    - Redis专题（数据结构，持久化策略，过期策略，分布式锁，客户端使用）
+    - Mysql专题（数据类型，命令，优化，emoji,mysql8，动态数据源，分库分表，全局唯一ID）
+    - 分布式专题（分布式存储，分布式事务，分布式事务解决方案）
+    - Springboot应用专题（main方法启动原理，jar方法启动原理，spring boot相关实现）
+    - HTTP专题（http https http/1.1 http/2 SSL/TSL认证,缓存机制）
+    - 设计模式专题（...）
+    - Kafka专题（基础配置，应用，架构，原理，消息路由，rebalance机制，controller节点，fail over,分布式事务，分区策略...）
+    
+- 待继续学习并整理   
+    - Spring Cloud应用专题（Eureka,Consul,Nacos,Hytrix,Ribbon,Gateway...） 
+    - 代理专题Nginx(正向代理，反向代理，Nginx...)   
+    - Netty专题（NIO,BIO,AIO,Selector,Reacotr）
+    - Shiro专题（SessionManager...）
+    - RabbitMQ专题
+    - JVM专题（内存泄漏，垃圾回收算法[CMS,G1,并行回收]）
+    - Elasticsearch专题（索引机制，检索原理，应用场景[hbase+ES,mysql+ES]）
+    - Linux相关
 
+-------------------------------------------------------------------------
 **主要包括：** 
 1. 排序算法学习
 2. redis缓存机制学习

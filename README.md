@@ -22,12 +22,13 @@
     - Kafka专题（基础配置，应用，架构，原理，消息路由，rebalance机制，controller节点，fail over,分布式事务，分区策略...）
     
 - 待继续学习并整理   
-    - Spring Cloud应用专题（Eureka,Consul,Nacos,Hytrix,Ribbon,Gateway...） 
+    - Spring Cloud应用专题（Eureka,Consul,Nacos,Hytrix,Ribbon,Gateway...）
+    - Redisson（锁，基本数据类型，和SpringCache的结合...） 
     - 代理专题Nginx(正向代理，反向代理，Nginx...)   
     - Netty专题（NIO,BIO,AIO,Selector,Reacotr）
     - Shiro专题（SessionManager...）
     - RabbitMQ专题
-    - JVM专题（内存泄漏，垃圾回收算法[CMS,G1,并行回收]）
+    - JVM专题（内存泄漏，垃圾回收算法[CMS,G1,并行回收],jvm优化）
     - Elasticsearch专题（索引机制，检索原理，应用场景[hbase+ES,mysql+ES]）
     - Linux相关
 

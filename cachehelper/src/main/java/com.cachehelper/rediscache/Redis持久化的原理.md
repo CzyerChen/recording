@@ -34,4 +34,7 @@
 - 但是如果对持久化要求高的，那自然数据一个也不能多一个也不能少
 - 从redis 4.0开始就可以使用混合持久化方案，将从索引0-当前索引，创造一个最大化RDB快照，再将RDB快照后最当前的索引之间的通过AOF日志文件记录，这样重放内存也会较快，数据也能保证完整性
 
+### [更多](https://mp.weixin.qq.com/s?__biz=MzA3MTUzOTcxOQ==&mid=2452965876&idx=1&sn=8e652ab31b628af89b275cf8f25544ef&scene=21#wechat_redirect)
+
+
 

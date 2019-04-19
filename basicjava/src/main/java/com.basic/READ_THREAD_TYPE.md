@@ -5,7 +5,7 @@
 
 ### newCachedThreadPool：可缓存的线程池
 
-```java
+```text
   /**
      * Creates a thread pool that creates new threads as needed, but
      * will reuse previously constructed threads when they are
@@ -36,7 +36,7 @@
 3、线程处于闲置状态超过60s的话，就会被销毁。
 
 ``使用：``
-```java
+```text
 public static void main(String[] args){
       ExecutorService executorService = Executors.newCachedThreadPool();
       executorService.submit(new Runnable() {
@@ -78,7 +78,7 @@ public static void main(String[] args){
 而是创建新的线程去执行任务。如果当前执行任务数量大于核心线程数，此时再提交任务就在队列中等待，直到有可用线程。
 
 ``使用：``
-```java
+```text
  public static void main(String[] args){
       ExecutorService executorService = Executors.newFixedThreadPool(10);
       executorService.submit(new Runnable() {
@@ -92,7 +92,7 @@ public static void main(String[] args){
 ```
 
 ### newSingleThreadExecutor： 单线程线程池
-```java
+```text
   /**
      * Creates an Executor that uses a single worker thread operating
      * off an unbounded queue. (Note however that if this single
@@ -114,7 +114,7 @@ public static void main(String[] args){
     }
 ```
 ``使用：``
-```java
+```text`
 public static void main(String[] args){
       ExecutorService executorService = Executors.newSingleThreadExecutor();
       executorService.submit(new Runnable() {
@@ -158,7 +158,7 @@ public static void main(String[] args){
 
 2、该线程池采用的队列是DelayedWorkQueue，具有延迟和定时的作用。
 ``使用：``
-```java
+```text
  public static void main(String[] args){
       ExecutorService executorService = Executors.newScheduledThreadPool(10);
       //延迟1分执行，只执行一次
@@ -198,7 +198,7 @@ public static void main(String[] args){
 ThreadFactory是一个接口类，也就是我们经常说的线程工厂，只有一个方法，可以用于创建线程：
 默认情况下，ThreadPoolExecutor构造器传入的ThreadFactory 参数是Executors类中的defaultThreadFactory()，相当于一个线程工厂，帮我们创建了线程池中所需的线程。
 自定义线程池就是自定义实现thread的一个接口
-```java
+```text
  public static void main(String[] args){
       ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 10, 10L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), new ThreadFactory() {
          @Override

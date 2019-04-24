@@ -122,7 +122,7 @@ slaveof 192.168.35.127 6379
 17389:S 19 Apr 2019 07:08:35.259 * MASTER <-> REPLICA sync: Finished with success
 
 ```
-5.登录客户端，查看一下集群信息
+5.登录客户端，查看一下主从信息
 - 主节点上client,info replication
 ```text
 192.168.35.127:6379> info replication

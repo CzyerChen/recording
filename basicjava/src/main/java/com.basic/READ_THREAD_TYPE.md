@@ -113,8 +113,8 @@ public static void main(String[] args){
                                     new LinkedBlockingQueue<Runnable>()));
     }
 ```
-``使用：``
-```text`
+使用：
+```text
 public static void main(String[] args){
       ExecutorService executorService = Executors.newSingleThreadExecutor();
       executorService.submit(new Runnable() {
@@ -128,7 +128,7 @@ public static void main(String[] args){
 ```
 
 ### newScheduledThreadPool：支持定时的定长线程池
-```java
+```text
   /**
      * Creates a thread pool that can schedule commands to run after a
      * given delay, or to execute periodically.
@@ -157,7 +157,7 @@ public static void main(String[] args){
 1、该线程池可以设置核心线程数量，最大线程数与newCachedThreadPool一样，都是Integer.MAX_VALUE。
 
 2、该线程池采用的队列是DelayedWorkQueue，具有延迟和定时的作用。
-``使用：``
+使用：
 ```text
  public static void main(String[] args){
       ExecutorService executorService = Executors.newScheduledThreadPool(10);

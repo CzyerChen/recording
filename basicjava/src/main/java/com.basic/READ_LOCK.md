@@ -117,3 +117,201 @@ CAS是英文单词Compare and Swap（比较并交换），是一种有名的无�
 - 4.重量级锁状态
 锁的状态是通过对象监视器在对象头中的字段来表明的，以上状态锁的重量级由低到高，不可降级
 重量级锁是指当锁为轻量级锁的时候，另一个线程虽然是自旋，但自旋不会一直持续下去，当自旋一定次数的时候，还没有获取到锁，就会进入阻塞，该锁膨胀为重量级锁。重量级锁会让其他申请的线程进入阻塞，性能降低。
+
+### sychronized的执行指令
+#### 修饰对象
+- 类：
+```text
+public class SynchronizedDemo {
+    public void method() {
+        synchronized (this) {
+            System.out.println("synchronized ...");
+        }
+    }
+}
+```
+- javac SynchronizedDemo.java
+- java -c -s -v -l SynchronizedDemo.class
+```text
+$ javap -c -s -v -l SynchronizedDemo.class
+Classfile /D:/SynchronizedDemo.class
+  Last modified 2019-5-5; size 531 bytes
+  MD5 checksum ecfc3d628f7ba427f6416c5b639498dd
+  Compiled from "SynchronizedDemo.java"
+public class SynchronizedDemo
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #6.#18         // java/lang/Object."<init>":()V
+   #2 = Fieldref           #19.#20        // java/lang/System.out:Ljava/io/Print                                                                                                                Stream;
+   #3 = String             #21            // synchronized ...
+   #4 = Methodref          #22.#23        // java/io/PrintStream.println:(Ljava/                                                                                                                lang/String;)V
+   #5 = Class              #24            // SynchronizedDemo
+   #6 = Class              #25            // java/lang/Object
+   #7 = Utf8               <init>
+   #8 = Utf8               ()V
+   #9 = Utf8               Code
+  #10 = Utf8               LineNumberTable
+  #11 = Utf8               method
+  #12 = Utf8               StackMapTable
+  #13 = Class              #24            // SynchronizedDemo
+  #14 = Class              #25            // java/lang/Object
+  #15 = Class              #26            // java/lang/Throwable
+  #16 = Utf8               SourceFile
+  #17 = Utf8               SynchronizedDemo.java
+  #18 = NameAndType        #7:#8          // "<init>":()V
+  #19 = Class              #27            // java/lang/System
+  #20 = NameAndType        #28:#29        // out:Ljava/io/PrintStream;
+  #21 = Utf8               synchronized ...
+  #22 = Class              #30            // java/io/PrintStream
+  #23 = NameAndType        #31:#32        // println:(Ljava/lang/String;)V
+  #24 = Utf8               SynchronizedDemo
+  #25 = Utf8               java/lang/Object
+  #26 = Utf8               java/lang/Throwable
+  #27 = Utf8               java/lang/System
+  #28 = Utf8               out
+  #29 = Utf8               Ljava/io/PrintStream;
+  #30 = Utf8               java/io/PrintStream
+  #31 = Utf8               println
+  #32 = Utf8               (Ljava/lang/String;)V
+{
+  public SynchronizedDemo();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>                                                                                                                ":()V
+         4: return
+      LineNumberTable:
+        line 1: 0
+
+  public void method();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: aload_0 // 无引用
+         1: dup
+         2: astore_1
+         //获取对象
+         3: monitorenter
+         4: getstatic     #2                  // Field java/lang/System.out:Ljav                                                                                                                a/io/PrintStream;
+         7: ldc           #3                  // String synchronized ...
+         9: invokevirtual #4                  // Method java/io/PrintStream.prin                                                                                                                tln:(Ljava/lang/String;)V
+        12: aload_1  // 有一个引用
+        //释放对象
+        13: monitorexit
+        14: goto          22
+        17: astore_2
+        18: aload_1
+        19: monitorexit
+        20: aload_2
+        21: athrow
+        22: return
+      Exception table:
+         from    to  target type
+             4    14    17   any
+            17    20    17   any
+      LineNumberTable:
+        line 3: 0
+        line 4: 4
+        line 5: 12
+        line 6: 22
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 17
+          locals = [ class SynchronizedDemo, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+}
+SourceFile: "SynchronizedDemo.java"
+
+```
+### 锁住方法
+- 类：
+```text
+public class SynchronizedDemo2 {
+    public synchronized void method() {
+        System.out.println("synchronized2!!!");
+    }
+}
+```
+- javap -c -s -v -l SynchronizedDemo2.class
+```text
+$ javap -c -s -v -l SynchronizedDemo2.class
+Classfile /D:/SynchronizedDemo2.class
+  Last modified 2019-5-5; size 421 bytes
+  MD5 checksum 330170b77a797cf07bdbc688574e3e00
+  Compiled from "SynchronizedDemo2.java"
+public class SynchronizedDemo2
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #6.#14         // java/lang/Object."<init>":()V
+   #2 = Fieldref           #15.#16        // java/lang/System.out:Ljava/io/PrintStream;
+   #3 = String             #17            // synchronized2!!!
+   #4 = Methodref          #18.#19        // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #5 = Class              #20            // SynchronizedDemo2
+   #6 = Class              #21            // java/lang/Object
+   #7 = Utf8               <init>
+   #8 = Utf8               ()V
+   #9 = Utf8               Code
+  #10 = Utf8               LineNumberTable
+  #11 = Utf8               method
+  #12 = Utf8               SourceFile
+  #13 = Utf8               SynchronizedDemo2.java
+  #14 = NameAndType        #7:#8          // "<init>":()V
+  #15 = Class              #22            // java/lang/System
+  #16 = NameAndType        #23:#24        // out:Ljava/io/PrintStream;
+  #17 = Utf8               synchronized2!!!
+  #18 = Class              #25            // java/io/PrintStream
+  #19 = NameAndType        #26:#27        // println:(Ljava/lang/String;)V
+  #20 = Utf8               SynchronizedDemo2
+  #21 = Utf8               java/lang/Object
+  #22 = Utf8               java/lang/System
+  #23 = Utf8               out
+  #24 = Utf8               Ljava/io/PrintStream;
+  #25 = Utf8               java/io/PrintStream
+  #26 = Utf8               println
+  #27 = Utf8               (Ljava/lang/String;)V
+{
+  public SynchronizedDemo2();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 1: 0
+
+  public synchronized void method();
+    descriptor: ()V
+    //没有monitor对象
+    //JVM 通过该 ACC_SYNCHRONIZED 访问标志来
+     //辨别一个方法是否声明为同步方法，从而执行相应的同步调用。
+    flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #3                  // String synchronized2!!!
+         5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 3: 0
+        line 4: 8
+}
+SourceFile: "SynchronizedDemo2.java"
+
+```
+
+### jdk1.6之后，synchronized做了什么优化
+- JDK1.6 对锁的实现引入了大量的优化，如偏向锁、轻量级锁、自旋锁、适应性自旋锁、锁消除、锁粗化等技术来减少锁操作的开销
+
+
+  

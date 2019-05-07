@@ -50,7 +50,82 @@ JProfiler
 Profiling
 Java VisualJVM
 
+### 五、[JVM OOM的几种情况,转自](https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&mid=2247484134&idx=1&sn=d48e0792697fc25013459404988e06af&chksm=f9f51902ce8290142ca9735d3591b21385154c7022de419bcea17693bfee2712fa6fdfc2f056&token=1379535535&lang=zh_CN&key=59679eecdce1d5f03c364916b2274dfbf16d08c9be54a8aacf237516a16a31cc499176d0e750cab773462961b7e98cb6a0d9138593a62bc6523ae84ea3b2a0e56cac33414250ae88696c9ee177391e10&ascene=1&uin=MTA4NjE2NTIyNA%3D%3D&devicetype=Windows+10&version=62060739&pass_ticket=KFYhA4IsoAmmNZ30lWG2b%2Bj3xJa7rkXfI6Qn2rgostn04tzq4cf6feFY0zSiJXPI)
+#### 发生在堆上
+- 很多内存泄露的情况都可能是发生在对上，数据对象的内存没有及时回收，新生代或者老年代或者永久代的内存耗尽，就会产生OOM
+- 原因就是以下几点：
+```text
+1.无法在堆上分配对象
 
+2.吞吐量增加
 
+3.应用程序无意中保存了对象引用，对象无法被 GC 回收
 
+4.过度使用 finalizer。finalizer 对象不能被 GC 立刻回收，上面也有介绍，只是标记，最终回收还是看GC
 
+```
+- 解决方案？扩大堆，或者找出操作隐患？
+```text
+使用 -Xmx 增加堆大小
+
+修复应用程序中的内存泄漏
+
+```
+#### GC的开销太大
+- 有一些情况，堆上对象过多，GC回收很缓慢，造成应用卡顿，甚至OOM
+- 解决方案;
+```text
+1.使用 -Xmx 增加堆大小
+
+2.使用 -XX:-UseGCOverheadLimit 取消 GC 开销限制
+
+3.修复应用程序中的内存泄漏
+```
+#### 建立过多线程池，资源耗尽
+- 内存不足，无法创建新线程
+- 解决方法：
+```text
+1.为机器分配更多的内存
+
+2.减少 Java 堆空间
+
+3.修复应用程序中的线程泄漏
+
+4.增加操作系统级别的限制
+- ulimit -a 用户进程数增大 (-u) 1800  使用 -Xss 减小线程堆栈大小
+```
+
+#### 数组长度越界
+- 这类问题就是一般对问题预估不当或者开发当中可能出现的问题，一般线上出现的可能性会相对较小
+- 解决方案：
+```text
+1.使用 -Xmx 增加堆大小
+
+2.修复应用程序中分配巨大数组的 bug
+```
+#### Perm gen 空间耗尽
+- 类的名字、字段、方法,与类相关的对象数组和类型数组,JIT 编译器优化所共占用的资源耗尽，将OOM
+- 解决办法:
+```text
+1.使用 -XX: MaxPermSize 增加 Permgen 大小
+
+2.不重启应用部署应用程序可能会导致此问题。重启 JVM 解决
+```
+
+### 元数据区耗尽
+- 同上一个一样的问题，由于JDK8开始类的名字、字段、方法,与类相关的对象数组和类型数组等资源的存储放在了本地的元数据区，因而这些资源的过大，会导致元数据区耗尽
+- 解决办法：
+```text
+1.通过命令行设置 -XX: MaxMetaSpaceSize 增加 metaspace 大小
+
+2.取消 -XX: maxmetsspacedize
+
+3.减小 Java 堆大小,为 MetaSpace 提供更多的可用空间
+
+4.为服务器分配更多的内存
+
+5.可能是应用程序 bug，修复 bug
+```
+
+#### 杀死进程或子进程
+#### 发生 stack_trace_with_native_method

@@ -36,7 +36,7 @@
 - 阶段1：通知内核
   - socket通知内核，当前请求为非阻塞，不要把用户线程睡眠，直接返回错误码即可
 - 阶段2：数据准备
-  - 客户端的IO操作线程，虽然会因为异步返回码不被阻塞，但是由于数据还未准备好，IO操作线程还是会不断请求数据，轮询、重试，直到2获取数据
+  - 客户端的IO操作线程，虽然会因为异步返回码不被阻塞，但是由于数据还未准备好，IO操作线程还是会不断请求数据，轮询、重试，直到获取数据
 - 阶段3：数据拷贝
   - 数据准备完毕，内核就负责把数据从内核态内存拷贝到用户态内存
 - 其中第二阶段的轮询会消耗大量CPU，因而不建议单独使用
@@ -48,7 +48,15 @@
 - 也是分为两个阶段：
     - 等待数据就绪：通过select/ poll 函数，监听多路channel，直到发现某一路数据就绪，具备读写的可能
     - 数据拷贝，通过某一路channel能够读写数据后，就将数据从内核态内存拷贝到用户态内存
+```text
+多路复用IO为何比非阻塞IO模型的效率高是因为在非阻塞IO中，
 
+不断地询问socket状态时通过用户线程去进行的，
+
+而在多路复用IO中，轮询每个socket状态是内核在进行的，
+
+这个效率要比用户线程要高的多
+```
 ### 4.信号驱动IO
 - 允许socket进行信号驱动I/O，并安装一个信号处理函数，线程继续运行并不阻塞。当数据准备好时，线程会收到一个SIGIO 信号，可以在信号处理函数中调用I/O操作函数处理数据
 
@@ -91,8 +99,8 @@
 - 零拷贝是指，数据从磁盘读取之后，无需经过内核态内存到用户态内存，用户态内存和内核态内存，这两次上下文切换
 - 直接从磁盘读取到内核态内存，通过FileChannel，使用操作系统的sendFile方法，直接从内核态将数据发送出去
 
-### NIO 之Channel、Buffer
-#### 1. Buffer
+### NIO 之Channel、Buffer -- NIO基于Channel和Buffer(缓冲区)进行操作，数据总是从通道读取到缓冲区中，或者从缓冲区写入到通道中
+#### 1. Buffer  -- 缓冲区
 - Buffer： 一块缓存区，内部使用字节数组存储数据，并维护几个特殊变量，实现数据的反复利用
 
 - 几个概念
@@ -134,7 +142,7 @@ MappedByteBuffer
         - unsafe.allocateMemory(size)
         - unsafe.setMemory(base,size,(byte) 0)把新申请的内存数据清零
  
-#### 2.Channel
+#### 2.Channel -- 通道 -- 与Stream的单向不同，它是双向的
 - Channel :NIO把它支持的I/O对象抽象为Channel，Channel又称“通道”，类似于原I/O中的流（Stream）
 - 流是单向的，通道是双向的，可读可写
 - 流是阻塞的，通道时异步读写
@@ -142,13 +150,13 @@ MappedByteBuffer
 
 - 类型：
 ```text
-FileChannel
+FileChannel  -- 文件IO
 
-DatagramChannel
+DatagramChannel  --UDP
 
-SocketChannel
+SocketChannel  -- TCP
 
-ServerSocketChannel
+ServerSocketChannel -- TCP
 ```
 - FileChannel的read、write和map通过其实现类FileChannelImpl
 - READ实现
@@ -299,6 +307,8 @@ IOUtil---write
 3. 最后调用writeFromNativeBuffer，通过nativeDispatcher写入：abstract int write(FileDescriptor var1, long var2, int var4) throws IOException;
 
 - 以上读写的方法到导致了两次数据的复制
+#### 3. Selector  -- Selector能够检测多个注册的通道上是否有事件发生，如果有事件发生，便获取事件然后针对每个事件进行相应的响应处理
+- 实现单线程可以管理多个线程的事件，避免了多个线程分别去维护，减少了很多上下文的切换
 
 ### NIO之Selector实现原理
 - selector作为实现NIO多路复用的关键，以下详细介绍它的原理

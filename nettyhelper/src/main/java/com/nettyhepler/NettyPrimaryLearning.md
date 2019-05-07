@@ -1,4 +1,6 @@
 - 基本的JAVA IO知识可以通过预学习部分了解，主要需要理解Buffer Channel Selector等概念
+- 走进java IO包，走进Netty
+
 
 
 

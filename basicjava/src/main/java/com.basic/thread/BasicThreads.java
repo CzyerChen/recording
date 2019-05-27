@@ -16,6 +16,8 @@ package com.basic.thread;
  * limitations under the License.
  */
 
+import java.util.Arrays;
+
 /**
  * @author Jeff Lee
  * @since 2015-11-2 17:06:48
@@ -23,6 +25,7 @@ package com.basic.thread;
  */
 public class BasicThreads {
     public static void main(String[] args) {
+
         // 创建新的线程
         Thread t = new Thread(new LiftOff());
         // 执行线程

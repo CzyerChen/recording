@@ -56,6 +56,7 @@ public class NIOServer {
                                 (SocketChannel)key.channel();
                         ByteBuffer buffer =
                                 (ByteBuffer)key.attachment();
+
                         while (buffer.hasRemaining()) {
                             if (client.write(buffer) == 0) {        //9
                                 break;

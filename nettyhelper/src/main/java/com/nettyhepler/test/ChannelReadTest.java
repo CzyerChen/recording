@@ -26,6 +26,7 @@ public class ChannelReadTest {
             int byteRead = fileChannel.read(byteBuffer);
             while (byteRead != -1) {
                 System.out.println("READ :" + byteRead);
+                //数据写进buffer ,再反转一下，把数据再吐出来
                 byteBuffer.flip();
                 while (byteBuffer.hasRemaining()) {
                     System.out.println((char) byteBuffer.get());

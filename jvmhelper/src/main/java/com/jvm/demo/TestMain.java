@@ -1,5 +1,7 @@
 package com.jvm.demo;
 
+import java.util.HashMap;
+
 /**
  * Desciption
  *
@@ -11,6 +13,7 @@ public class TestMain {
         Person person = new Person();
         person.setName("claire");
         person.setAge(11);
+
 
         System.out.println(person);
     }

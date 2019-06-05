@@ -19,3 +19,6 @@
         
         ExecutorService executorService3 = Executors.newWorkStealingPool(10);//并行度
 ```
+
+### 线程池的种类，每个种类的用途，对应的队列
+

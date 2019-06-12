@@ -165,4 +165,135 @@ volumes:
     driver: local
 ```
 - 通过书写docker-compose.yml和利用docker-compose down/docker-compose up -d/docker-compose logs来运作，相当便利
+
+
+### 安装elk,[elk文档](https://elk-docker.readthedocs.io)
+- 这个就更加省力了，github上很多打好的镜像都已经放到docker hub中，因而我们通过搜索elk看到一个star数最高的，就是它了
+```text
+docker search elk
+docker pull sebp/elk:670 ---- 我这边用的是这个版本
+#接下来可以使用run 也可以使用容器编排 来运行
+docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -p9300:9300 -it --name elk  -d sebp/elk:670
+
+或者docker-compose.yml
+elk:
+  image: sebp/elk:670
+  ports:
+    - "5601:5601"
+    - "9200:9200"
+    - "5044:5044"
+    - "9300:9300"
+docker-compose up -d
+docker-compose down
+
+``` 
+- 配置logstash
+- 选择性地启动es logstash 或者kibana
+- 有一些启动环境参数可供选择和配置
+```text
+TZ: the container's time zone (see list of valid time zones), e.g. America/Los_Angeles (default is Etc/UTC, i.e. UTC).
+
+ES_HEAP_SIZE: Elasticsearch heap size (default is 256MB min, 1G max)
+
+Specifying a heap size – e.g. 2g – will set both the min and max to the provided value. To set the min and max values separately, see the ES_JAVA_OPTS below.
+
+ES_JAVA_OPTS: additional Java options for Elasticsearch (default: "")
+
+For instance, to set the min and max heap size to 512MB and 2G, set this environment variable to -Xms512m -Xmx2g.
+
+ES_CONNECT_RETRY: number of seconds to wait for Elasticsearch to be up before starting Logstash and/or Kibana (default: 30)
+
+ES_PROTOCOL: protocol to use to ping Elasticsearch's JSON interface URL (default: http)
+
+Note that this variable is only used to test if Elasticsearch is up when starting up the services. It is not used to update Elasticsearch's URL in Logstash's and Kibana's configuration files.
+
+CLUSTER_NAME: the name of the Elasticsearch cluster (default: automatically resolved when the container starts if Elasticsearch requires no user authentication).
+
+The name of the Elasticsearch cluster is used to set the name of the Elasticsearch log file that the container displays when running. By default the name of the cluster is resolved automatically at start-up time (and populates CLUSTER_NAME) by querying Elasticsearch's REST API anonymously. However, when Elasticsearch requires user authentication (as is the case by default when running X-Pack for instance), this query fails and the container stops as it assumes that Elasticsearch is not running properly. Therefore, the CLUSTER_NAME environment variable can be used to specify the name of the cluster and bypass the (failing) automatic resolution.
+
+LS_HEAP_SIZE: Logstash heap size (default: "500m")
+
+LS_OPTS: Logstash options (default: "--auto-reload" in images with tags es231_l231_k450 and es232_l232_k450, "" in latest; see Breaking changes)
+
+NODE_OPTIONS: Node options for Kibana (default: "--max-old-space-size=250")
+
+MAX_MAP_COUNT: limit on mmap counts (default: system default)
+
+Warning – This setting is system-dependent: not all systems allow this limit to be set from within the container, you may need to set this from the host before starting the container (see Prerequisites).
+
+MAX_OPEN_FILES: maximum number of open files (default: system default; Elasticsearch needs this amount to be equal to at least 65536)
+
+KIBANA_CONNECT_RETRY: number of seconds to wait for Kibana to be up before running the post-hook script (see Pre-hooks and post-hooks) (default: 30)
+
+ES_HEAP_DISABLE and LS_HEAP_DISABLE: disable HeapDumpOnOutOfMemoryError for Elasticsearch and Logstash respectively if non-zero (default: HeapDumpOnOutOfMemoryError is enabled).
+```
+```text
+sudo docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it \
+    -e ES_HEAP_SIZE="2g" -e LS_HEAP_SIZE="1g" --name elk sebp/elk:670
+```
+- [更多配置文档](https://elk-docker.readthedocs.io)
+
+- 在容器启动前和启动后有对应地sh脚本可以运行，其中可以配置一些环境变量
+- 创建你的应用和elk一体的网络配置
+- 关于elk的默认配置在/etc/logstash/conf.d下面，如果是运行的配置文件在/opt//logstash/config下面
+- 除了进入容器去修改你的配置文件，比较友好的方式，可以将容器运行所需的配置文件映射到外部来，因而可以不进入容器内部来操作修改配置文件，docker run -v来映射
+- 或者在dockerfile中就写明映射的位置，就不需要run的时候指定了
+```text
+FROM sebp/elk
+
+ENV ES_HOME /opt/elasticsearch
+WORKDIR ${ES_HOME}
+
+RUN yes | CONF_DIR=/etc/elasticsearch gosu elasticsearch bin/elasticsearch-plugin \
+    install -b ingest-geoip
+```
+- 考虑到上面的elk是单节点的es，那么如果我想是es的集群可以吗？其实你单独一个节点一个节点装，或者用docker-compose都是可以的，但是基于现有的elk也可以做到
+- 已有的elk加上不同节点的es集群
+```text
+主节点
+network.host: 0.0.0.0
+network.publish_host: <reachable IP address or FQDN> --- 这里不是docker的内部IP
+
+从节点
+elasticsearch-slave.yml
+network.host: 0.0.0.0
+network.publish_host: <reachable IP address or FQDN>
+discovery.zen.ping.unicast.hosts: ["elk-master.example.com"]
+
+然后启动
+sudo docker run -it --rm=true -p 9200:9200 -p 9300:9300 \
+  -v /home/elk/elasticsearch-slave.yml:/etc/elasticsearch/elasticsearch.yml \
+  sebp/elk
  
+```
+- 已有的elk加上同一节点的es集群
+```text
+先起一个elk
+sudo docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk
+
+然后在一个elasticsearch-slave.yml的配置文件
+network.host: 0.0.0.0
+discovery.zen.ping.unicast.hosts: ["elk"]
+
+然后再起一个节点,docker run --rm=true在容器退出时就自动删除容器
+sudo docker run -it --rm=true \
+  -v /var/sandbox/elk-docker/elasticsearch-slave.yml:/etc/elasticsearch/elasticsearch.yml \
+  --link elk:elk --name elk-slave sebp/elk
+
+```
+- 优化你的集群，安全性的考虑：以上镜像是由带xpack ，因而有安全性保障，当然也可以去除
+- [一些问题说明](https://elk-docker.readthedocs.io)
+
+
+#### 对于需要添加插件的情况，可以在dockerfile中进行修改
+```text
+FROM sebp/elk
+
+WORKDIR ${LOGSTASH_HOME}
+RUN gosu logstash bin/logstash-plugin install logstash-input-rss
+
+```
+
+#### 对于持久化日志文件，那就可以通过文件映射的方式，打印到本机上
+
+### 快照和restore

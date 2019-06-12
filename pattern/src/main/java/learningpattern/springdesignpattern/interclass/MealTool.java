@@ -1,6 +1,5 @@
 package learningpattern.springdesignpattern.interclass;
 
-import com.test.interclass.AbstractTool;
 
 public class MealTool extends AbstractTool {
     @Override

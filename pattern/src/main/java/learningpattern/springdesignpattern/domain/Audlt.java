@@ -1,6 +1,7 @@
 package learningpattern.springdesignpattern.domain;
 
-import com.test.interclass.ActionList;
+
+import learningpattern.springdesignpattern.interclass.ActionList;
 
 public class Audlt implements ActionList {
 

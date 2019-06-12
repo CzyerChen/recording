@@ -77,6 +77,8 @@ public class RandomTest {
                 chars[i] = nextChar(rnd);
             }
         }
+
+
         String string = new String(chars);
     }
 }

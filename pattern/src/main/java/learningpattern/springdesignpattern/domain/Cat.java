@@ -1,6 +1,7 @@
 package learningpattern.springdesignpattern.domain;
 
-import com.test.interclass.AnimalInterface;
+
+import learningpattern.springdesignpattern.interclass.AnimalInterface;
 
 public class Cat extends ParentAnimal implements AnimalInterface {
 

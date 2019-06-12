@@ -1,8 +1,9 @@
 package learningpattern.springdesignpattern.domain;
 
-import com.test.interclass.AnimalInterface;
 
-public class Dog extends ParentAnimal implements AnimalInterface{
+import learningpattern.springdesignpattern.interclass.AnimalInterface;
+
+public class Dog extends ParentAnimal implements AnimalInterface {
 
 
     public Dog(String name, String something) {

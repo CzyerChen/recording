@@ -1,7 +1,8 @@
 package learningpattern.springdesignpattern.interclass;
 
-import com.test.domain.Audlt;
-import com.test.domain.Child;
+
+import learningpattern.springdesignpattern.domain.Audlt;
+import learningpattern.springdesignpattern.domain.Child;
 
 public class DailyLife implements ActionMaker {
     private ActionList actionList;

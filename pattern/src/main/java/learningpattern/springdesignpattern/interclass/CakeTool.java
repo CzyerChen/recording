@@ -1,6 +1,6 @@
 package learningpattern.springdesignpattern.interclass;
 
-import com.test.interclass.AbstractTool;
+
 
 public class CakeTool extends AbstractTool {
 

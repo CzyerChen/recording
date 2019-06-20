@@ -18,6 +18,21 @@ node环境：
 12.4.0
 
 ```
+- 遇到的问题
+```text
+1. vue init webpack-simple demo  在project description的地方持续卡住，没有响应，提升node版本和降低node版本均无效，网上说的8.0.0版本都不行，放弃
+
+2. node最初是在mac上开始做开发的，因而对macOS还是比较友好的，在brew下就可以安装nodejs和nvm，但是并不是特别建议，因为一些bash权限的原因，所以可以自行安装，卸载重装
+
+3. node多版本的控制 nvm
+
+4. 需要将npm的执行目录修改到当前用户目录,不然会有很多permissions deny，让你很难受
+
+5. 有vue2.x的情况下，需要安装vue3.x
+
+6. 还有一些就是下载速度慢，下载失败等等，请安装淘宝镜像
+
+```
 ### 一、安装前提，删掉所有历史存在的node数据
 - 卸载已安装到全局的 node/npm
 ```text
@@ -220,7 +235,7 @@ node 版本管理工具还有一个是 TJ 大神的 n 命令，n 命令是作�
 由于 npm 安装的模块路径均为 /usr/local/lib/node_modules ，当使用 n 切换不同的 node 版本时，实际上会共用全局的 node/npm 目录。 因此不能很好的满足『按不同 node 版本使用不同全局 node 模块』的需求
 
 ```
-     
+  
 ### 参考
 - [1](https://blog.csdn.net/ytangdigl/article/details/75095787)
 - [2](https://www.cnblogs.com/ljq66/articles/10011444.html)

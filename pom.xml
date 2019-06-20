@@ -28,6 +28,7 @@
         <module>proxyhelper</module>
         <module>linux</module>
         <module>queuehepler</module>
+        <module>vuehelper</module>
     </modules>
 
     <name>java learning summarize</name>

@@ -188,6 +188,31 @@ lsof -i:80
 ### htop
 ### iotop
 ### smem
+### chown -- 修改目录 用户组权限 
+```text
+将opt下所有目录，都改为root用户，root组：chown 所有者，所属组  文件\目录名
+chown root.root -R /opt/
+
+只修改用户，不修改组
+chown root /opt
+
+```
+### chgrp 修改目录 组权限
+```text
+chgrp 组名 文件或目录
+
+```
+### 查看组的全部信息
+```text
+cat /etc/group
+more /etc/group
+```
+### 查看某用户的组信息
+```text
+groups root
+```
+
+
 
 ls、ps、free、top、uptime、ifconfig、su/sudo、dmesg、iostat、vmstat、sar、htop、iotop、smem
 

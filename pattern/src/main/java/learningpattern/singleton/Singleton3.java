@@ -12,9 +12,13 @@ package learningpattern.singleton;
  */
 public class Singleton3 {
 
-    public volatile  Singleton3 _INSTANCE = null;
+    public static volatile  Singleton3 _INSTANCE = null;
 
-    public Singleton3 getInstance(){
+    private Singleton3(){
+
+    }
+
+    public static Singleton3 getInstance(){
         if(_INSTANCE == null){
             synchronized (Singleton3.class){
                 if(_INSTANCE == null){

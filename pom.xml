@@ -29,6 +29,7 @@
         <module>linux</module>
         <module>queuehepler</module>
         <module>vuehelper</module>
+        <module>nginxhelper</module>
     </modules>
 
     <name>java learning summarize</name>

@@ -30,6 +30,8 @@
         <module>queuehepler</module>
         <module>vuehelper</module>
         <module>nginxhelper</module>
+        <module>project-management</module>
+        <module>testhelper</module>
     </modules>
 
     <name>java learning summarize</name>

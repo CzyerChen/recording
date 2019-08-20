@@ -32,6 +32,7 @@
         <module>nginxhelper</module>
         <module>project-management</module>
         <module>testhelper</module>
+        <module>monitor-skill</module>
     </modules>
 
     <name>java learning summarize</name>

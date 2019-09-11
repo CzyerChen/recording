@@ -129,4 +129,3 @@ Full GC 执行频率不算频繁，不低于10分钟1次。
 如果大于，将尝试着进行一次 Minor GC；如果小于，或者 HandlePromotionFailure 设置不允许冒险，
 那么就要进行一次 Full GC
 ```
- 

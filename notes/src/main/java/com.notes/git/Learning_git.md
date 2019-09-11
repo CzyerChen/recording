@@ -15,6 +15,9 @@ git tag show //展示标签版本信息
 切换标签
 git checkout v1.0
 
+创建本地标签，并切换到对应的标签
+git checkout -b develop 
+
 删除标签
 git tag -d v1.0
 
@@ -26,5 +29,11 @@ git push origin v1.0
 
 将本地标签全部提交
 git push origin --tags
+
+删除本地分支，并删除远程分支
+git push origin --delete xxxxx
+
+删除本地分支
+git branch -d [branchname]
 
 ```

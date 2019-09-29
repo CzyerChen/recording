@@ -39,6 +39,7 @@
 ####  jdk动态代理，默认的实现，需要类实现接口的方式
 - JDK动态代理主要涉及到java.lang.reflect包中的两个类：Proxy和InvocationHandler
 - InvocationHandler是一个接口，通过实现该接口定义横切逻辑，并通过反射机制调用目标类的代码，动态将横切逻辑和业务逻辑编制在一起- Proxy利用InvocationHandler动态创建一个符合某一接口的实例，生成目标类的代理对象。
+- 比如日志或者拦截器，通过切口做记录或者拦截
 
 #### CGLIB动态代理，需要类执行继承的方法，通过底层字节码技术对子类进行拦截
 - CGLib全称为Code Generation Library，是一个强大的高性能，高质量的代码生成类库，可以在运行期扩展Java类与实现Java接口，CGLib封装了asm，可以再运行期动态生成新的class。

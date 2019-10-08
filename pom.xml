@@ -33,6 +33,7 @@
         <module>project-management</module>
         <module>testhelper</module>
         <module>monitor-skill</module>
+        <module>installer</module>
     </modules>
 
     <name>java learning summarize</name>

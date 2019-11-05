@@ -16,13 +16,13 @@
     - Redis专题（数据结构，持久化策略，过期策略，分布式锁，客户端使用）
     - Mysql专题（数据类型，命令，优化，emoji,mysql8，动态数据源，分库分表，全局唯一ID）
     - 分布式专题（分布式存储，分布式事务，分布式事务解决方案）
-    - Springboot应用专题（main方法启动原理，jar方法启动原理，spring boot相关实现）
+    - [Springboot应用专题](https://github.com/CzyerChen/springboot-forall)（main方法启动原理，jar方法启动原理，spring boot相关实现）
     - HTTP专题（http https http/1.1 http/2 SSL/TSL认证,缓存机制）
     - 设计模式专题（...）
     - Kafka专题（基础配置，应用，架构，原理，消息路由，rebalance机制，controller节点，fail over,分布式事务，分区策略...）
     
 - 待继续学习并整理   
-    - Spring Cloud应用专题（Eureka,Consul,Nacos,Hytrix,Ribbon,Gateway...）
+    - [Spring Cloud应用专题](https://github.com/CzyerChen/springcloud-forall)（Eureka,Consul,Nacos,Hytrix,Ribbon,Gateway...）
     - Redisson（锁，基本数据类型，和SpringCache的结合...） 
     - 代理专题Nginx(正向代理，反向代理，Nginx...)   
     - Netty专题（NIO,BIO,AIO,Selector,Reacotr）
@@ -88,20 +88,20 @@
 
 2.java内存模型
 - 内存可见性 ✔
-- 重排序
+- 重排序  ✔
 - 顺序一致性
 - volatile✔
 - 锁✔
-- final 
+- final  ✔
 
 3.垃圾回收
 - 内存分配策略 ✔
 - 垃圾收集器（CMS,G1，并行） ✔
 - GC算法 ✔
 - GC参数
-- 对象存活的判定
+- 对象存活的判定  ✔
 
-4.JVM参数及调优
+4.JVM参数及调优  ✔
 
 5.JAVA对象模型
 - oop-klass
@@ -137,7 +137,7 @@
    
 - java变量类型✔
 - 熟悉Java String的使用，String的各种函数
-  - JDK 6和JDK 7中substring的原理及区别
+  - JDK 6和JDK 7中substring的原理及区别 
   - replaceFirst、replaceAll、replace区别
   - String对“+”的重载 ✔
   - String.valueOf和Integer.toString的区别 ✔
@@ -157,12 +157,12 @@
   
 - 集合类
   - 常用集合类的使用 ✔
-  - ArrayList和LinkedList和Vector的区别 
+  - ArrayList和LinkedList和Vector的区别 ✔
   - SynchronizedList和Vector的区别
   - HashMap、HashTable、ConcurrentHashMap区别 ✔
   - Java 8中stream相关用法
   - apache集合处理工具类的使用
-  - 不同版本的JDK中HashMap的实现的区别以及原因
+  - 不同版本的JDK中HashMap的实现的区别以及原因 ✔
   
 - 枚举
   - 枚举的用法  ✔
@@ -245,7 +245,7 @@
   - Thread、Runnable、Callable ✔
   - ReentrantLock、ReentrantReadWriteLock  ✔
   - Atomic* ✔
-  - Semaphore
+  - Semaphore ✔
   - CountDownLatch ✔
   - ConcurrentHashMap  ✔
   - Executors  ✔
@@ -262,11 +262,11 @@
 - 锁
   - CAS ✔
   - 乐观锁与悲观锁 ✔
-  - 数据库相关锁机制
+  - 数据库相关锁机制 ✔
   - 分布式锁 ✔
   - 偏向锁、轻量级锁、重量级锁 ✔
-  - monitor
-  - 锁优化、锁消除、锁粗化
+  - monitor ✔
+  - 锁优化、锁消除、锁粗化 ✔
   - 自旋锁 ✔
   - 可重入锁 ✔
   - 阻塞锁
@@ -274,20 +274,20 @@
 
 - 死锁
   - volatile  ✔
-  - happens-before
-  - 编译器指令重排和CPU指令重
+  - happens-before ✔
+  - 编译器指令重排和CPU指令重 ✔
 
 - synchronized
-  - synchronized是如何实现的
+  - synchronized是如何实现的 ✔
   - synchronized和lock之间关系 ✔
-  - 不使用synchronized如何实现一个线程安全的单例
+  - 不使用synchronized如何实现一个线程安全的单例 ✔
 
-- sleep 和 wait
-- wait 和 notify
-- notify 和 notifyAll
+- sleep 和 wait ✔
+- wait 和 notify ✔
+- notify 和 notifyAll ✔
 - ThreadLocal ✔
-- 写一个死锁的程序
-- 写代码来解决生产者消费者问题
+- 写一个死锁的程序 ✔
+- 写代码来解决生产者消费者问题 ✔
 - 守护线程
 - 守护线程和非守护线程的区别以及用法
 
@@ -313,7 +313,7 @@
 
 - 实现IOC ✔
 
-- 不用synchronized和lock，实现线程安全的单例模式
+- 不用synchronized和lock，实现线程安全的单例模式 ✔
 
 - nio和reactor设计模式
 
@@ -322,7 +322,7 @@
 
 - 三次握手与四次关闭、流量控制和拥塞控制、OSI七层模型、tcp粘包与拆包
 
-- http/1.0 http/1.1 http/2之前的区别
+- http/1.0 http/1.1 http/2之前的区别 ✔
 
 - Java RMI，Socket，HttpClient
 
@@ -346,15 +346,15 @@
 4.框架知识
   - Servlet线程安全问题
   - Servlet中的filter和listener
-  - Hibernate的缓存机制
+  - Hibernate的缓存机制 ✔
   - Hiberate的懒加载
   - Spring Bean的初始化 ✔
   - Spring的AOP原理 ✔
   - 自己实现Spring的IOC ✔
   - Spring MVC ✔
   - Spring Boot2.0 ✔
-  - Spring Boot的starter原理，自己实现一个starter
-  - Spring Security
+  - Spring Boot的starter原理，自己实现一个starter ✔
+  - Spring Security ✔
   
 5.应用服务器知识
   - JBoss
@@ -378,7 +378,7 @@ maven & gradle ✔
 
 - Java 10
   - 局部变量类型推断
-  - G1的并行Full GC
+  - G1的并行Full GC ✔
   - ThreadLocal握手机制
 
 - Spring 5
@@ -434,7 +434,7 @@ maven & gradle ✔
 - MySql 执行引擎✔
 - MySQL 执行计划✔
 - 如何查看执行计划，如何根据执行计划进行SQL优化✔
-- SQL优化
+- SQL优化 ✔
 - 事务✔
 - 事务的隔离级别✔
 - 事务能不能实现锁的功能
@@ -448,7 +448,7 @@ maven & gradle ✔
   - redis ✔
   - memcached
 
-- 分别使用数据库锁、NoSql实现分布式锁
+- 分别使用数据库锁、NoSql实现分布式锁  ✔
 - 性能调优
 
 7.数据结构与算法知识
@@ -460,9 +460,9 @@ maven & gradle ✔
   - 字典树
   - 平衡树
   - 排序树
-  - B树、B+树、R树
+  - B树、B+树、R树 ✔
   - 多路树
-  - 红黑树
+  - 红黑树 ✔
 
 - 排序算法
   - 各种排序算法和时间复杂度 深度优先和广度优先搜索 全排列、贪心算法、KMP算法、hash算法、海量数据处理
@@ -470,10 +470,10 @@ maven & gradle ✔
 
 8.大数据知识
 - Zookeeper
-  - 基本概念
-  - 常见用法
-  - 一致性算法
-  - 节点选举流程
+  - 基本概念✔
+  - 常见用法 ✔
+  - 一致性算法 ✔
+  - 节点选举流程 ✔
   
 
 - Solr，Lucene，ElasticSearch
@@ -532,7 +532,7 @@ maven & gradle ✔
   - mfs、fastdfs
 
 - 分布式缓存
-  - 缓存一致性
+  - 缓存一致性 
   - 缓存命中率
   - 缓存冗余
 
@@ -547,7 +547,7 @@ maven & gradle ✔
   - Istio✔
   
 - 高并发
-  - 分库分表
+  - 分库分表 ✔
   - CDN技术
   
 - 消息队列
@@ -558,10 +558,10 @@ maven & gradle ✔
 - 监控
   - 监控什么
   - CPU、内存、磁盘I/O、网络I/O等
-  - 监控手段 zabbix的使用/ELK平台
+  - 监控手段 zabbix的使用/ELK平台 ✔
   - 进程监控、语义监控、机器资源监控、数据波动
   - 监控数据采集
-  - 日志、埋点
+  - 日志、埋点 ✔
   - Dapper
   
 - 负载均衡

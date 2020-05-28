@@ -9,13 +9,17 @@
 package com.basic.java8;
 
 import com.sun.org.apache.regexp.internal.RE;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 /**
@@ -27,6 +31,7 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 public class LambdaMain {
+    private static final Logger logger = LoggerFactory.getLogger(LambdaMain.class);
 
 
     public static void main(String[] args) throws UnknownHostException {
@@ -114,6 +119,9 @@ public class LambdaMain {
 //        }
         Validator validator = new Validator((String s) -> s.matches("[a-z]+"));
         boolean sss = validator.validate("sss");
+
+        FunctionLambdaClass<String> functionLambdaClass = new FunctionLambdaClass<>();
+        functionLambdaClass.withLock(new ReentrantLock(),() ->{System.out.println("aaaa");});
 
     }
 }

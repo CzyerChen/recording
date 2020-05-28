@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -134,6 +135,9 @@ public class StreamMain {
         DoubleSummaryStatistics doubleSummaryStatistics = DoubleStream.of(0.4).summaryStatistics();
 
         Long count3 = Stream.of(content).collect(Collectors.partitioningBy(a -> a.length() < 12, Collectors.counting())).get(true);
+
+        String[] strings = FunctionLambdaClass.filter(content, (item) -> item.length() == 1);
+
     }
 
 }

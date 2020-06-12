@@ -117,11 +117,15 @@ public class LambdaMain {
 //        for(Runnable r : list){
 //            r.run();
 //        }
-        Validator validator = new Validator((String s) -> s.matches("[a-z]+"));
-        boolean sss = validator.validate("sss");
-
-        FunctionLambdaClass<String> functionLambdaClass = new FunctionLambdaClass<>();
-        functionLambdaClass.withLock(new ReentrantLock(),() ->{System.out.println("aaaa");});
+//        Validator validator = new Validator((String s) -> s.matches("[a-z]+"));
+//        boolean sss = validator.validate("sss");
+//
+//        FunctionLambdaClass<String> functionLambdaClass = new FunctionLambdaClass<>();
+//        functionLambdaClass.withLock(new ReentrantLock(),() ->{System.out.println("aaaa");});
+        String string = Base64.getEncoder().encodeToString("clairechen.github.io.website".getBytes());
+        System.out.println(string);
+        String string1 = Base64.getEncoder().encodeToString("clairechen".getBytes());
+        System.out.println(string1);
 
     }
 }

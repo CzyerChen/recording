@@ -1,0 +1,31 @@
+<store>
+    <product id="1">
+        <name>薯片</name>
+        <price>10.0</price>
+        <inventory>100</inventory>
+    </product>
+
+    <product id="2">
+        <name>泡面</name>
+        <price>3.0</price>
+        <inventory>500</inventory>
+    </product>
+
+    <product id="3">
+        <name>冰淇淋</name>
+        <price>7.0</price>
+        <inventory>50</inventory>
+    </product>
+
+    <product id="4">
+        <name>饼干</name>
+        <price>5.0</price>
+        <inventory>1000</inventory>
+    </product>
+
+    <product id="5">
+        <name>香肠</name>
+        <price>2.0</price>
+        <inventory>240</inventory>
+    </product>
+</store>

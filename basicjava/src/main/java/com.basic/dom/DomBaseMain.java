@@ -9,10 +9,10 @@
 package com.basic.dom;
 
 import org.dom4j.Attribute;
-import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -26,6 +26,10 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.*;
 import javax.xml.stream.*;
 import javax.xml.stream.events.XMLEvent;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -43,11 +47,12 @@ import java.util.List;
 public class DomBaseMain extends DefaultHandler {
 
 
-    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, DocumentException, XMLStreamException {
+    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, DocumentException, XMLStreamException, XPathExpressionException {
         //=====================DOM==========================//
-//        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-//        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-//        Document document = documentBuilder.parse("store.xml");
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document document = documentBuilder.parse("store.xml");
+
 //        NodeList productList = document.getElementsByTagName("product");
 //        for (int i = 0; i < productList.getLength(); i++) {
 //            Node product = productList.item(i);
@@ -81,6 +86,28 @@ public class DomBaseMain extends DefaultHandler {
 //            }
 //        }
 
+        List<Product> products = new ArrayList<>();
+        XPathFactory xPathFactory = XPathFactory.newInstance();
+        XPath xPath = xPathFactory.newXPath();
+        NodeList nodeList = (NodeList)xPath.evaluate("store/product",document, XPathConstants.NODESET);
+        for(int i=0 ;i <nodeList.getLength();i++){
+            Node node = nodeList.item(i);
+            Node nodeAttr = node.getAttributes().item(0);
+            Integer id = Integer.valueOf(nodeAttr.getNodeValue());
+            String name = String.valueOf(xPath.evaluate("name", node, XPathConstants.STRING));
+            Double price = (Double)xPath.evaluate("price", node, XPathConstants.NUMBER);
+            Integer inventory =((Double)xPath.evaluate("inventory", node, XPathConstants.NUMBER)).intValue();
+
+            Product product = new Product();
+            product.setId(id);
+            product.setName(name);
+            product.setPrice(price);
+            product.setInventory(inventory);
+            products.add(product);
+
+        }
+        products.forEach(System.out::println);
+
 
         //=====================SAX==========================//
 //        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -112,75 +139,75 @@ public class DomBaseMain extends DefaultHandler {
 //        products.forEach(System.out::println);
 
         //=====================StAX 流 光标模型==========================//
-        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        FileReader fileReader = new FileReader("store.xml");
-        xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
-        XMLStreamReader xmlStreamReader = xmlInputFactory.createXMLStreamReader(fileReader);
-        List<Product> products = new ArrayList<>();
-
-        while (xmlStreamReader.hasNext()) {
-            int type = xmlStreamReader.next();
-            if (XMLStreamConstants.START_DOCUMENT == type) {
-            } else if (XMLStreamConstants.START_ELEMENT == type) {
-                String name = xmlStreamReader.getName().toString();
-                if ("product".equals(name)) {
-                    QName key = xmlStreamReader.getAttributeName(0);
-                    if ("id".equals(key.toString())) {
-                        Product product = new Product();
-                        product.setId(Integer.valueOf(xmlStreamReader.getAttributeValue(0)));
-                        products.add(product);
-                    }
-                } else if ("name".equals(name)) {
-                    Product product = products.get(products.size() - 1);
-                    product.setName(xmlStreamReader.getElementText());
-                } else if ("price".equals(name)) {
-                    Product product = products.get(products.size() - 1);
-                    product.setPrice(Double.valueOf(xmlStreamReader.getElementText()));
-                } else if ("inventory".equals(name)) {
-                    Product product = products.get(products.size() - 1);
-                    product.setInventory(Integer.valueOf(xmlStreamReader.getElementText()));
-                }
-            } else if (XMLStreamConstants.CHARACTERS == type) {
-//                System.out.println(xmlStreamReader.getText().trim());
-            } else if (XMLStreamConstants.END_ELEMENT == type) {
-                // System.out.println("/"+xmlStreamReader.getName());
-            } else if (XMLStreamConstants.END_DOCUMENT == type) {
-
-            }
-        }
-        products.forEach(System.out::println);
+//        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+//        FileReader fileReader = new FileReader("store.xml");
+//        xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
+//        XMLStreamReader xmlStreamReader = xmlInputFactory.createXMLStreamReader(fileReader);
+//        List<Product> products = new ArrayList<>();
+//
+//        while (xmlStreamReader.hasNext()) {
+//            int type = xmlStreamReader.next();
+//            if (XMLStreamConstants.START_DOCUMENT == type) {
+//            } else if (XMLStreamConstants.START_ELEMENT == type) {
+//                String name = xmlStreamReader.getName().toString();
+//                if ("product".equals(name)) {
+//                    QName key = xmlStreamReader.getAttributeName(0);
+//                    if ("id".equals(key.toString())) {
+//                        Product product = new Product();
+//                        product.setId(Integer.valueOf(xmlStreamReader.getAttributeValue(0)));
+//                        products.add(product);
+//                    }
+//                } else if ("name".equals(name)) {
+//                    Product product = products.get(products.size() - 1);
+//                    product.setName(xmlStreamReader.getElementText());
+//                } else if ("price".equals(name)) {
+//                    Product product = products.get(products.size() - 1);
+//                    product.setPrice(Double.valueOf(xmlStreamReader.getElementText()));
+//                } else if ("inventory".equals(name)) {
+//                    Product product = products.get(products.size() - 1);
+//                    product.setInventory(Integer.valueOf(xmlStreamReader.getElementText()));
+//                }
+//            } else if (XMLStreamConstants.CHARACTERS == type) {
+////                System.out.println(xmlStreamReader.getText().trim());
+//            } else if (XMLStreamConstants.END_ELEMENT == type) {
+//                // System.out.println("/"+xmlStreamReader.getName());
+//            } else if (XMLStreamConstants.END_DOCUMENT == type) {
+//
+//            }
+//        }
+//        products.forEach(System.out::println);
 
         //=====================StAX 迭代模型==========================//
 
-        XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(fileReader);
-        while (xmlEventReader.hasNext()) {
-            XMLEvent xmlEvent = xmlEventReader.nextEvent();
-            if (xmlEvent.isStartDocument()) {
-
-            } else if (xmlEvent.isStartElement()) {
-
-            } else if (xmlEvent.isEndElement()) {
-
-            } else if (xmlEvent.isEndDocument()) {
-
-            }
-        }
+//        XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(fileReader);
+//        while (xmlEventReader.hasNext()) {
+//            XMLEvent xmlEvent = xmlEventReader.nextEvent();
+//            if (xmlEvent.isStartDocument()) {
+//
+//            } else if (xmlEvent.isStartElement()) {
+//
+//            } else if (xmlEvent.isEndElement()) {
+//
+//            } else if (xmlEvent.isEndDocument()) {
+//
+//            }
+//        }
 
         //=====================StAX 过滤器模型==========================//
-        XMLEventReader reader = xmlInputFactory.createFilteredReader(xmlInputFactory.createXMLEventReader(fileReader),
-                new EventFilter() {
-                    @Override
-                    public boolean accept(XMLEvent event) {
-                        //返回true表示会显示
-                        if(event.isStartElement()) {
-                            String name = event.asStartElement().getName().toString();
-                            if(name.equals("price")) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    }
-                });
+//        XMLEventReader reader = xmlInputFactory.createFilteredReader(xmlInputFactory.createXMLEventReader(fileReader),
+//                new EventFilter() {
+//                    @Override
+//                    public boolean accept(XMLEvent event) {
+//                        //返回true表示会显示
+//                        if(event.isStartElement()) {
+//                            String name = event.asStartElement().getName().toString();
+//                            if(name.equals("price")) {
+//                                return true;
+//                            }
+//                        }
+//                        return false;
+//                    }
+//                });
         //后续依旧照常处理
 
     }
